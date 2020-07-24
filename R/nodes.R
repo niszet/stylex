@@ -1,3 +1,67 @@
+#' set existence to target tag
+#'
+#' @param node xml single style node
+#' @param val set value. non-NA or NA.
+#' @param ptag parent tag
+#' @param ctag child tag
+#'
+#' @return xml style node object after modification
+#'
+set_exist_tag <- function(node, val, ptag, ctag){
+  sep <- "/"
+
+  if(!is.na(xml2::xml_child(node, stringr::str_c(ptag, sep, ctag)))){
+    if(is.na(val)){
+      xml2::xml_remove(xml2::xml_child(node, stringr::str_c(ptag, sep, ctag)))
+    }
+  }else{
+    if(!is.na(val)){
+      xml2::xml_add_child(xml2::xml_child(node, ptag), ctag)
+    }
+  }
+}
+
+#' set existence to target tag w/o child tag.
+#'
+#' @param node xml single style node
+#' @param val set value. NA or non-NA.
+#' @param tag target tag
+#'
+#' @return updated single xml style tag.
+#'
+set_exist_tag_wo_ctag <- function(node, val, tag){
+  if(!is.na(val)){
+    xml2::xml_add_child(node, tag)
+  }else{
+    xml2::xml_remove(node, tag)
+  }
+}
+
+
+set_next_val <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:next"), "val", val)
+}
+
+set_ui_priority_val <- function(node, val){
+  xml2::xml_attr(xml2::xml_child(node, "w:uiPriority"), "val", val)
+}
+
+set_unhide_when_used <- function(node, val){
+  tag = "w:unhideWhenUsed"
+  set_exist_tag_wo_ctag(node, val, tag)
+}
+
+set_q_format <- function(node, val){
+  tag = "w:qFormat"
+  set_exist_tag_wo_ctag(node, val, tag)
+}
+
+# w:autoRedefine
+
+set_semi_hidden <- function(node, val){
+  tag = "w:semiHidden"
+  set_exist_tag_wo_ctag(node, val, tag)
+}
 
 set_based_on_val <- function(node, val){
   xml2::xml_set_attr(xml2::xml_child(node, "w:basedOn"), "val", val)
@@ -46,18 +110,6 @@ set_r_caps <- function(node, val){
   ptag = "w:rPr"
   ctag = "w:caps"
   set_exist_tag(node, val, ptag, ctag)
-}
-
-set_exist_tag <- function(node, val, ptag, ctag){
-  if(!is.na(xml2::xml_child(node, stringr::str_c(ptag, "/", ctag)))){
-    if(is.na(val)){
-      xml2::xml_remove(xml2::xml_child(node, stringr::str_c(ptag, "/", ctag)))
-    }
-  }else{
-    if(!is.na(val)){
-      xml2::xml_add_child(xml2::xml_child(node, ptag), ctag)
-    }
-  }
 }
 
 set_r_strike <- function(node, val){
@@ -155,9 +207,5 @@ set_p_spacing_before <- function(node, val){
 set_p_spacing_after <- function(node, val){
   xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:spacing"), "w:after", val)
 }
-
-
-
-
 
 

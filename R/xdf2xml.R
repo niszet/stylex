@@ -6,11 +6,11 @@ h <- new.env()
 #h[["style_id"]] <- set_style_id
 #h[["link_val"]] <- set_link_val
 h[["based_on_val"]] <- set_based_on_val
-#h[["next_val"]] <- set_next_val
-#h[["ui_priority_val"]] <- set_ui_priority_val
-#h[["unhide_when_used"]] <- set_unhide_when_used
-#h[["q_format"]] <- set_q_format
-#h[["semi_hidden"]] <- set_semi_hidden
+h[["next_val"]] <- set_next_val
+h[["ui_priority_val"]] <- set_ui_priority_val
+h[["unhide_when_used"]] <- set_unhide_when_used
+h[["q_format"]] <- set_q_format
+h[["semi_hidden"]] <- set_semi_hidden
 #h[["p_pr"]] <- set_p_pr
 
 #h[["p_pr_p_bdr"]] <- set_p_pr_p_bdr
