@@ -1,6 +1,6 @@
 Package: stylex
 Type: Package
-Title: Package fot updating style file in docx for making template.
+Title: Package fot updating style file in docx for making template
 Version: 0.0.0.9000
 Author: niszet [aut, cph, cre]
 Maintainer: niszet <niszet_dev@gmail.com>
@@ -11,5 +11,12 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Imports:
+  dplyr,
+  fs,
+  janitor,
+  officer,
+  stringr,
+  xml2
 Suggests: 
-    testthat
+    testthat (>= 2.3.2)

@@ -6,7 +6,7 @@ style_xml <- get_style_tags(xml)
 # node <- get_node_by_id(style_xml, "1")
 node <- get_node_by_name(style_xml, "Date")
 # node <- get_node_by_name(style_xml, "heading 5")
-View(node)
+#View(node)
 
 
 set_r_sz_val(node, "42")
