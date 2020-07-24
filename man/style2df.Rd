@@ -2,19 +2,22 @@
 % Please edit documentation in R/xml2df.R
 \name{style2df}
 \alias{style2df}
-\title{Title}
+\title{Convert xml object to data.frame}
 \usage{
-style2df(style_all)
+style2df(style_xml)
 }
 \arguments{
-\item{style_all}{}
+\item{style_xml}{A node oject of xml2. It expexts output of \code{read_style_xml()}.}
 }
 \value{
-
+data.frame converted from input xml.
 }
 \description{
-Title
+Convertion from xml to data.frame for modification usability.
 }
 \examples{
+\dontrun{
+style2df(style_xml)
+}
 
 }

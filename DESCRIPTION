@@ -1,11 +1,12 @@
 Package: stylex
 Type: Package
-Title: Package fot updating style file in docx for making template
+Title: Package for updating styles in docx file for making template
 Version: 0.0.0.9000
 Author: niszet [aut, cph, cre]
 Maintainer: niszet <niszet_dev@gmail.com>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: Support to modify the style settings in docx file.
+    This package expects Pandoc's docx template file but any other docx can be applied.
+    This package will NOT check the value which given. See the reference of OOXML and MS Word's behavior.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

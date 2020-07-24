@@ -2,20 +2,24 @@
 % Please edit documentation in R/nodeutils.R
 \name{get_node_by_id}
 \alias{get_node_by_id}
-\title{Utility functions realted to xml nodes.}
+\title{To get specific node by style_id}
 \usage{
 get_node_by_id(style_xml, node_id)
 }
 \arguments{
-\item{node_id}{}
+\item{style_xml}{xml2 node object of styles.}
+
+\item{node_id}{style_id to get specific node.}
 }
 \value{
-
+xml2 node object
 }
 \description{
-To get specific node by name, id and so on.
+To get specific node by style_id
 }
 \examples{
-
+\dontrun{
+ get_node_by_id(xml, "Author")
+}
 
 }

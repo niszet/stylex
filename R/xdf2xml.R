@@ -114,14 +114,26 @@ h[["r_vanish"]] <- set_r_vanish
 #h[["r_r_fonts_h_ansi_theme"]] <- set_r_r_fonts_h_ansi_theme
 #h[["r_r_fonts_cstheme"]] <- set_r_r_fonts_cstheme
 
-# -----
 
-
+#' Update xml file based on reference.docx and data.frame.
+#'
+#' @param docx_file reference.docx file which has original styles.
+#' @param df data.frame which contains updated value. Note that all updated values are updated.
+#'
+#' @return Updated style xml node object.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' update_xml("reference.docx", df)
+#' }
+#'
 update_xml <- function(docx_file, df){
   xml <- read_style_xml(docx_file)
   style_xml <- get_style_tags(xml)
   org_df <- style2df(style_xml)
   d_df <- dplyr::setdiff(df, org_df)
+
   for (x in d_df[["style_id"]]) {
     node <- get_node_by_id(style_xml, x)
     for(col in colnames(d_df)){

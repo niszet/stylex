@@ -1,12 +1,4 @@
-#' internal functions to modify node's value by val
-#'
-#' @param node
-#' @param val
-#'
-#' @return
-#'
-#'
-#' @examples
+
 set_based_on_val <- function(node, val){
   xml2::xml_set_attr(xml2::xml_child(node, "w:basedOn"), "val", val)
 }
