@@ -30,7 +30,7 @@ What is special about using `README.Rmd` instead of just `README.md`?
 You can include R chunks like so:
 
 ``` r
-# hoge
+# hoge 
 ```
 
 You’ll still need to render `README.Rmd` regularly, to keep `README.md`
