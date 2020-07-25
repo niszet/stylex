@@ -98,7 +98,7 @@ h[["r_shd_fill"]] <- set_r_shd_fill
 h[["r_vert_align_val"]] <- set_r_vert_align_val
 h[["r_color_val"]] <- set_r_color_val
 h[["r_color_themecolor"]] <- set_r_color_themecolor
-#h[["r_color_theme_tint"]] <- set_r_color_theme_tint
+h[["r_color_theme_tint"]] <- set_r_color_theme_tint
 h[["r_b_cs"]] <- set_r_b_cs
 h[["r_i"]] <- set_r_i
 h[["r_i_cs"]] <- set_r_i_cs
