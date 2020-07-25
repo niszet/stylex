@@ -47,20 +47,31 @@ h[["semi_hidden"]] <- set_semi_hidden
 #h[["p_pr_p_bdr_bottom_theme_tint"]] <- set_p_pr_p_bdr_bottom_theme_tint
 #h[["p_pr_p_bdr_bottom_theme_shade"]] <- set_p_pr_p_bdr_bottom_theme_shade
 
+h[["p_shd"]] <- set_p_shd
+h[["p_shd_val"]] <- set_p_shd_val
+h[["p_shd_color"]] <- set_p_shd_color
+h[["p_shd_theme_color"]] <- set_p_shd_theme_color
+h[["p_shd_theme_tint"]] <- set_p_shd_theme_tint
+h[["p_shd_fill"]] <- set_p_shd_fill
+h[["p_shd_theme_fill"]] <- set_p_shd_theme_fill
+h[["p_shd_theme_fill_tint"]] <- set_p_shd_theme_fill_tint
+h[["p_shd_theme_fill_shade"]] <- set_p_shd_theme_fill_shade
+
+
 h[["p_spacing"]] <- set_p_spacing
-#h[["p_spacing_before_lines"]] <- set_p_spacing_before_lines
+h[["p_spacing_before_lines"]] <- set_p_spacing_before_lines
 h[["p_spacing_before"]] <- set_p_spacing_before
 h[["p_spacing_after"]] <- set_p_spacing_after
-#h[["p_spacing_after_lines"]] <- set_p_spacing_after_lines
-#h[["p_spacing_line"]] <- set_p_spacing_line
-#h[["p_spacing_line_rule"]] <- set_p_spacing_line_rule
+h[["p_spacing_after_lines"]] <- set_p_spacing_after_lines
+h[["p_spacing_line"]] <- set_p_spacing_line
+h[["p_spacing_line_rule"]] <- set_p_spacing_line_rule
 h[["p_ind"]] <- set_p_ind
 h[["p_ind_left"]] <- set_p_ind_left
-#h[["p_ind_left_chars"]] <- set_p_ind_left_chars
+h[["p_ind_left_chars"]] <- set_p_ind_left_chars
 h[["p_ind_right"]] <- set_p_ind_right
-#h[["p_ind_right_chars"]] <- set_p_ind_right_chars
-#h[["p_ind_first_line"]] <- set_p_ind_first_line
-#h[["p_ind_first_line_chars"]] <- set_p_ind_first_line_chars
+h[["p_ind_right_chars"]] <- set_p_ind_right_chars
+h[["p_ind_first_line"]] <- set_p_ind_first_line
+h[["p_ind_first_line_chars"]] <- set_p_ind_first_line_chars
 #h[["p_contextual_spacing"]] <- set_p_contextual_spacing
 #h[["p_jc"]] <- set_p_jc
 #h[["p_jc_val"]] <- set_p_jc_val

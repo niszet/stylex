@@ -80,6 +80,7 @@ style2df <- function(style_xml){
     p_shd_fill = xml2::xml_attr(xml2::xml_child(style_xml, "w:pPr/w:shd"), "fill"),
     p_shd_themeFill = xml2::xml_attr(xml2::xml_child(style_xml, "w:pPr/w:shd"), "themeFill"),
     p_shd_themeFillTint = xml2::xml_attr(xml2::xml_child(style_xml, "w:pPr/w:shd"), "themeFillTint"),
+    p_shd_themeFillShade = xml2::xml_attr(xml2::xml_child(style_xml, "w:pPr/w:shd"), "themeFillShade"),
 
     p_spacing = dplyr::if_else(!is.na(xml2::xml_child(style_xml, "w:pPr/w:spacing")), T, NA),
     p_spacing_beforeLines = xml2::xml_attr(xml2::xml_child(style_xml, "w:pPr/w:spacing"), "beforeLines"),
