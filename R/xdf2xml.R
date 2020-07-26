@@ -72,25 +72,28 @@ h[["p_ind_right"]] <- set_p_ind_right
 h[["p_ind_right_chars"]] <- set_p_ind_right_chars
 h[["p_ind_first_line"]] <- set_p_ind_first_line
 h[["p_ind_first_line_chars"]] <- set_p_ind_first_line_chars
-#h[["p_contextual_spacing"]] <- set_p_contextual_spacing
-#h[["p_jc"]] <- set_p_jc
-#h[["p_jc_val"]] <- set_p_jc_val
-#h[["p_tabs"]] <- set_p_tabs
-#h[["p_snap_to_grid"]] <- set_p_snap_to_grid
-#h[["p_frame"]] <- set_p_frame
-#h[["p_frame_wrap"]] <- set_p_frame_wrap
-#h[["p_frame_v_anchor"]] <- set_p_frame_v_anchor
-#h[["p_frame_h_anchor"]] <- set_p_frame_h_anchor
-#h[["p_frame_y"]] <- set_p_frame_y
-#h[["p_outline_lvl"]] <- set_p_outline_lvl
-#h[["p_outline_lvl_val"]] <- set_p_outline_lvl_val
-#h[["p_keep_next"]] <- set_p_keep_next
-#h[["p_keep_lines"]] <- set_p_keep_lines
-#h[["p_word_wrap"]] <- set_p_word_wrap
-#h[["p_word_wrap_val"]] <- set_p_word_wrap_val
-#h[["r_pr"]] <- set_r_pr
+h[["p_contextual_spacing"]] <- set_p_contextual_spacing
+
+h[["p_jc"]] <- set_p_jc
+h[["p_jc_val"]] <- set_p_jc_val
+h[["p_tabs"]] <- set_p_tabs
+h[["p_snap_to_grid"]] <- set_p_snap_to_grid
+h[["p_frame"]] <- set_p_frame
+h[["p_frame_wrap"]] <- set_p_frame_wrap
+h[["p_frame_v_anchor"]] <- set_p_frame_v_anchor
+h[["p_frame_h_anchor"]] <- set_p_frame_h_anchor
+h[["p_frame_y"]] <- set_p_frame_y
+
+h[["p_outline_lvl"]] <- set_p_outline_lvl
+h[["p_outline_lvl_val"]] <- set_p_outline_lvl_val
+h[["p_keep_next"]] <- set_p_keep_next
+h[["p_keep_lines"]] <- set_p_keep_lines
+h[["p_word_wrap"]] <- set_p_word_wrap
+h[["p_word_wrap_val"]] <- set_p_word_wrap_val
+h[["r_pr"]] <- set_r_pr
 h[["r_sz_val"]] <- set_r_sz_val
-#h[["r_sz_cs_val"]] <- set_r_sz_cs_val
+h[["r_sz_cs_val"]] <- set_r_sz_cs_val
+
 h[["r_shd"]] <- set_r_shd
 h[["r_shd_val"]] <- set_r_shd_val
 h[["r_shd_color"]] <- set_r_shd_color
@@ -112,9 +115,10 @@ h[["r_imprint"]] <- set_r_imprint
 h[["r_outline"]] <- set_r_outline
 h[["r_shadow"]] <- set_r_shadow
 h[["r_vanish"]] <- set_r_vanish
-#h[["r_u_val"]] <- set_r_u_val
-#h[["r_u_color"]] <- set_r_u_color
-#h[["r_em_val"]] <- set_r_em_val
+h[["r_u_val"]] <- set_r_u_val
+h[["r_u_color"]] <- set_r_u_color
+h[["r_em_val"]] <- set_r_em_val
+
 #h[["r_r_fonts"]] <- set_r_r_fonts
 #h[["r_r_fonts_ascii"]] <- set_r_r_fonts_ascii
 #h[["r_r_fonts_h_ansi"]] <- set_r_r_fonts_h_ansi

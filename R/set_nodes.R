@@ -37,6 +37,9 @@ set_exist_tag_wo_ctag <- function(node, val, tag){
   }
 }
 
+set_based_on_val <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:basedOn"), "w:val", val)
+}
 
 set_next_val <- function(node, val){
   xml2::xml_set_attr(xml2::xml_child(node, "w:next"), "w:val", val)
@@ -63,15 +66,219 @@ set_semi_hidden <- function(node, val){
   set_exist_tag_wo_ctag(node, val, tag)
 }
 
-set_based_on_val <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:basedOn"), "w:val", val)
+set_p_shd <- function(node, val){
+  # TBD
 }
 
+set_p_shd_val <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:shd"), "w:val", val)
+}
+
+set_p_shd_color <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:shd"), "w:color", val)
+}
+
+set_p_shd_theme_color <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:shd"), "w:themeColor", val)
+}
+
+set_p_shd_theme_tint <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:shd"), "w:themeTint", val)
+}
+
+set_p_shd_fill <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:shd"), "w:fill", val)
+}
+
+set_p_shd_theme_fill <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:shd"), "w:themeFill", val)
+}
+
+set_p_shd_theme_fill_tint <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:shd"), "w:themeFillTint", val)
+}
+
+set_p_shd_theme_fill_shade <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:shd"), "w:themeFillShade", val)
+}
+
+
+set_p_spacing <- function(node, val){
+  # TBD
+  # p_spacing = dplyr::if_else(!is.na(xml2::xml_child(style_all, "w:pPr/w:spacing")), T, NA),
+}
+
+set_p_spacing_before_lines <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:spacing"), "w:beforeLines", val)
+}
+
+set_p_spacing_before <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:spacing"), "w:before", val)
+}
+
+set_p_spacing_after <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:spacing"), "w:after", val)
+}
+
+set_p_spacing_after_lines <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:spacing"), "w:afterLines", val)
+}
+
+set_p_spacing_line <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:spacing"), "w:line", val)
+}
+
+set_p_spacing_line_rule <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:spacing"), "w:lineRule", val)
+}
+
+
+set_p_ind <- function(node, val){
+  # p_ind = dplyr::if_else(!is.na(xml2::xml_child(style_all, "w:pPr/w:ind")), T, NA),
+}
+
+set_p_ind_left <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:ind"), "w:left", val)
+}
+
+set_p_ind_left_chars <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:ind"), "w:leftChars", val)
+}
+
+set_p_ind_right <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:ind"), "w:right", val)
+}
+
+set_p_ind_right_chars <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:ind"), "w:rightChars", val)
+}
+
+set_p_ind_first_line <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:ind"), "w:firstLine", val)
+}
+
+set_p_ind_first_line_chars <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:ind"), "w:firstLineChars", val)
+}
+
+set_p_contextual_spacing <- function(node, val){
+  ptag = "w:pPr"
+  ctag = "w:contextualSpacing"
+  set_exist_tag(node, val, ptag, ctag)
+}
+
+set_p_jc <- function(node, val){
+  ptag = "w:pPr"
+  ctag = "w:jc"
+  set_exist_tag(node, val, ptag, ctag)
+}
+
+set_p_jc_val <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:jc"), "val", val)
+}
+
+set_p_tabs <- function(node, val){
+  ptag = "w:pPr"
+  ctag = "w:tabs"
+  set_exist_tag(node, val, ptag, ctag)
+}
+
+set_p_snap_to_grid <- function(node, val){
+  ptag = "w:pPr"
+  ctag = "w:snapToGrid"
+  set_exist_tag(node, val, ptag, ctag)
+}
+
+set_p_frame <- function(node, val){
+  ptag = "w:pPr"
+  ctag = "w:framePr"
+  set_exist_tag(node, val, ptag, ctag)
+}
+
+set_p_frame_wrap <- function(node, val){
+ xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:framePr"), "wrap", val)
+}
+
+set_p_frame_v_anchor <- function(node, val){
+ xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:framePr"), "vAnchor", val)
+}
+
+set_p_frame_h_anchor <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:framePr"), "hAnchor", val)
+}
+
+set_p_frame_y <- function(node, val){
+ xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:framePr"), "y", val)
+}
+
+set_p_outline_lvl <- function(node, val){
+  ptag = "w:pPr"
+  ctag = "w:outlineLvl"
+  set_exist_tag(node, val, ptag, ctag)
+}
+
+set_p_outline_lvl_val <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:outlineLvl"), "val", val)
+}
+
+set_p_keep_next <- function(node, val){
+  ptag = "w:pPr"
+  ctag = "w:keepNext"
+  set_exist_tag(node, val, ptag, ctag)
+}
+
+set_p_keep_lines <- function(node, val){
+  ptag = "w:pPr"
+  ctag = "w:keepLines"
+  set_exist_tag(node, val, ptag, ctag)
+}
+
+set_p_word_wrap <- function(node, val){
+  ptag = "w:pPr"
+  ctag = "w:wordWrap"
+  set_exist_tag(node, val, ptag, ctag)
+}
+
+set_p_word_wrap_val <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:wordWrap"), "val", val)
+}
+
+
+
+# --- rPr ---
+set_r_pr <- function(node, val){
+  ptag = "w:pPr"
+  ctag = "w:keepLines"
+  set_exist_tag(node, val, ptag, ctag)
+}
 
 set_r_sz_val <- function(node, val){
   sz <- xml2::xml_child(node, "w:rPr/w:sz")
   xml2::xml_set_attr(sz, "w:val", val)
 }
+
+set_r_sz_cs_val <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:rPr/w:szCs"), "val", val)
+}
+
+set_r_shd <- function(node, val){
+  # TBD
+  # r_shd = dplyr::if_else(!is.na(xml2::xml_child(style_all, "w:rPr/w:shd")), T, NA),
+}
+
+set_r_shd_val <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:rPr/w:shd"), "w:val", val)
+}
+
+set_r_shd_color <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:rPr/w:shd"), "w:color", val)
+}
+
+set_r_shd_fill <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:rPr/w:shd"), "w:fill", val)
+}
+
+
 
 set_r_color_val <- function(node, val){
   xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:color"), "w:val", val)
@@ -165,121 +372,20 @@ set_r_vanish <- function(node, val){
   set_exist_tag(node, val, ptag, ctag)
 }
 
+set_r_u_val <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:rPr/w:u"), "val", val)
+}
+
+set_r_u_color <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:rPr/w:u"), "color", val)
+}
+
+set_r_em_val <- function(node, val){
+  xml2::xml_set_attr(xml2::xml_child(node, "w:rPr/w:em"), "val", val)
+}
+
 set_r_vert_align_val <- function(node, val){
   # add check?
   xml2::xml_set_attr(xml2::xml_child(node, "w:rPr/w:vertAlign"), "w:val", val)
 }
 
-set_p_ind <- function(node, val){
-  # p_ind = dplyr::if_else(!is.na(xml2::xml_child(style_all, "w:pPr/w:ind")), T, NA),
-}
-
-set_p_ind_left <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:ind"), "w:left", val)
-}
-
-set_p_ind_left_chars <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:ind"), "w:leftChars", val)
-}
-
-set_p_ind_right <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:ind"), "w:right", val)
-}
-
-set_p_ind_right_chars <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:ind"), "w:rightChars", val)
-}
-
-set_p_ind_first_line <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:ind"), "w:firstLine", val)
-}
-
-set_p_ind_first_line_chars <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:ind"), "w:firstLineChars", val)
-}
-
-set_p_shd <- function(node, val){
-  # TBD
-}
-
-set_p_shd_val <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:shd"), "w:val", val)
-}
-
-set_p_shd_color <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:shd"), "w:color", val)
-}
-
-set_p_shd_theme_color <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:shd"), "w:themeColor", val)
-}
-
-set_p_shd_theme_tint <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:shd"), "w:themeTint", val)
-}
-
-set_p_shd_fill <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:shd"), "w:fill", val)
-}
-
-set_p_shd_theme_fill <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:shd"), "w:themeFill", val)
-}
-
-set_p_shd_theme_fill_tint <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:shd"), "w:themeFillTint", val)
-}
-
-set_p_shd_theme_fill_shade <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:shd"), "w:themeFillShade", val)
-}
-
-
-set_p_spacing <- function(node, val){
-  # TBD
-  # p_spacing = dplyr::if_else(!is.na(xml2::xml_child(style_all, "w:pPr/w:spacing")), T, NA),
-}
-
-set_p_spacing_before_lines <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:spacing"), "w:beforeLines", val)
-}
-
-set_p_spacing_before <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:spacing"), "w:before", val)
-}
-
-set_p_spacing_after <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:spacing"), "w:after", val)
-}
-
-set_p_spacing_after_lines <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:spacing"), "w:afterLines", val)
-}
-
-set_p_spacing_line <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:spacing"), "w:line", val)
-}
-
-set_p_spacing_line_rule <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:spacing"), "w:lineRule", val)
-}
-
-
-# --- rPr ---
-
-set_r_shd <- function(node, val){
-  # TBD
-  # r_shd = dplyr::if_else(!is.na(xml2::xml_child(style_all, "w:rPr/w:shd")), T, NA),
-}
-
-set_r_shd_val <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:rPr/w:shd"), "w:val", val)
-}
-
-set_r_shd_color <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:rPr/w:shd"), "w:color", val)
-}
-
-set_r_shd_fill <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:rPr/w:shd"), "w:fill", val)
-}
