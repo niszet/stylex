@@ -42,13 +42,16 @@ set_exist_tag_wo_ctag <- function(node, val, tag){
 }
 
 set_attr_val <- function(node, val, tag, attr){
+  # xml2 needs w: in xml_set_attr. but not need in xml_attr...
+  attr_wo_w <- stringr::str_replace(string = attr, pattern = "w:", replacement = "")
+
   if(is.na(xml2::xml_child(node, tag))){
     warning(stringr::str_c(tag, " is missing. ", val, "is not set to ", attr))
   }else{
-    if(!is.na(xml2::xml_attr(xml2::xml_child(node, tag), attr))){
+    if(!is.na(xml2::xml_attr(xml2::xml_child(node, tag), attr_wo_w))){
       message(stringr::str_c(
-        attr, "is already has a value ",
-        xml2::xml_attr(xml2::xml_child(node, tag), attr),
+        attr, " has already a value ",
+        xml2::xml_attr(xml2::xml_child(node, tag), attr_wo_w),
         " and will be overwitten."))
     }
     xml2::xml_set_attr(xml2::xml_child(node, tag), attr, val)
