@@ -41,8 +41,25 @@ set_exist_tag_wo_ctag <- function(node, val, tag){
   }
 }
 
+set_attr_val <- function(node, val, tag, attr){
+  if(is.na(xml2::xml_child(node, tag))){
+    warning(stringr::str_c(tag, " is missing. ", val, "is not set to ", attr))
+  }else{
+    if(!is.na(xml2::xml_attr(xml2::xml_child(node, tag), attr))){
+      message(stringr::str_c(
+        attr, "is already has a value ",
+        xml2::xml_attr(xml2::xml_child(node, tag), attr),
+        " and will be overwitten."))
+    }
+    xml2::xml_set_attr(xml2::xml_child(node, tag), attr, val)
+  }
+}
+
+
 set_based_on_val <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:basedOn"), "w:val", val)
+  tag = "w:basedOn"
+  attr = "w:val"
+  set_attr_val(node, val, tag, attr)
 }
 
 set_next_val <- function(node, val){
