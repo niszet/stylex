@@ -31,9 +31,13 @@ set_exist_tag <- function(node, val, ptag, ctag){
 #'
 set_exist_tag_wo_ctag <- function(node, val, tag){
   if(!is.na(val)){
-    xml2::xml_add_child(node, tag)
+    if(is.na(xml2::xml_child(node, tag))){
+      xml2::xml_add_child(node, tag)
+    }
   }else{
-    xml2::xml_remove(node, tag)
+    if(!is.na(xml2::xml_child(node, tag))){
+      xml2::xml_remove(xml2::xml_child(node, tag))
+    }
   }
 }
 
