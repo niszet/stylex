@@ -43,6 +43,28 @@ set_exist_tag_wo_ctag <- function(node, val, tag){
   }
 }
 
+
+
+set_exist_tag2 <- function(node, val, tag){
+
+  # TODO: ext_parent_tag is here
+  if(!ext_parent_tag(node, tag)){
+    warning(tag, " : parent tag is missing")
+    return(NULL) # NULL is OK?
+  }
+
+  if(is.na(val)){
+    if(!is.na(xml2::xml_child(node, tag))){
+      xml2::xml_remove(xml2::xml_child(node, tag))
+    }
+  }else{
+    if(is.na(xml2::xml_child(node, tag))){
+      xml2::xml_add_child(node, tag)
+    }
+  }
+}
+
+
 #' Common function to update attr by val
 #'
 #' @param node xml2 node style object.
@@ -135,7 +157,8 @@ set_p_shd <- function(node, val){
   # TBD
 }
 
-set_p_shd_val <- function(node, val){
+set_p_shd_val <- function(
+  node, val){
   tag = "w:pPr/w:shd"
   attr = "w:val"
   set_attr_val(node, val, tag, attr)
