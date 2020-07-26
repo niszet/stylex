@@ -11,18 +11,21 @@ stylex
 especially for Pandoc’s docx input aka `reference.docx`. But any other
 docx file can be used.
 
+`stylex` package acts as a wrapper functions of `xml2`. This helps you
+to modify the style object of xml w/o error-prone actions.
+
 Installation
 ------------
 
-You can install the `stylex` package from
+You can install `stylex` package from
 [GitHub](https://github.com/niszet/stylex) with:
 
     remotes::install_github("niszet/stylex")
     # or
     devtools::install_github("niszet/stylex")
 
-Example1
---------
+Example 1
+---------
 
     library(stylex)
 
@@ -47,8 +50,8 @@ Example1
     # write the modified docx file.
     write_style(xml, file, "modified.docx")
 
-Example2
---------
+Example 2
+---------
 
 Internally, `stylex` package uses functions to each tags in docx file.
 Users can use these functions by calling with `:::` because these are
@@ -82,3 +85,30 @@ internal functions.
     stylex:::set_r_b(node, T)
 
     write_style(xml, file, "modified.docx")
+
+node structure
+==============
+
+You can see the structure of xml node/node\_set object by
+`xml2::xml_structure()` function as following
+
+    > xml2::xml_structure(node)
+    [[1]]
+    <style [type, styleId]>
+      <name [val]>
+      <basedOn [val]>
+      <next [val]>
+      <uiPriority [val]>
+      <qFormat>
+      <pPr>
+        <keepNext>
+        <keepLines>
+        <spacing [before, after]>
+        <outlineLvl [val]>
+      <rPr>
+        <rFonts [asciiTheme, eastAsiaTheme, hAnsiTheme, cstheme]>
+        <b>
+        <bCs>
+        <color [val, themeColor]>
+        <sz [val]>
+        <szCs [val]>

@@ -41,9 +41,23 @@ set_exist_tag_wo_ctag <- function(node, val, tag){
   }
 }
 
+#' Common function to update attr by val
+#'
+#' @param node xml2 node style object.
+#' @param val value for update.
+#' @param tag tag under the node.
+#' @param attr attribute name with "w:" prefix.
+#'
+#' @return None
+#'
 set_attr_val <- function(node, val, tag, attr){
   # xml2 needs w: in xml_set_attr. but not need in xml_attr...
   attr_wo_w <- stringr::str_replace(string = attr, pattern = "w:", replacement = "")
+
+  if(!ext_parent_tag(tag)){
+    warning(tag, " : parent tag is missing")
+    return(NULL) # TODO: NULL is OK?
+  }
 
   if(is.na(xml2::xml_child(node, tag))){
     warning(stringr::str_c(tag, " is missing. ", val, "is not set to ", attr))
@@ -58,6 +72,15 @@ set_attr_val <- function(node, val, tag, attr){
   }
 }
 
+ext_parent_tag <- function(node, tag){
+  if(stringr::str_match(string = tag, pattern = "/")){
+    tags <- stringr::str_split(tag, "/")
+    !is.na(xml2::xml_child(node, tags[1]))
+  }else{
+    TRUE
+  }
+}
+
 
 set_based_on_val <- function(node, val){
   tag = "w:basedOn"
@@ -66,11 +89,17 @@ set_based_on_val <- function(node, val){
 }
 
 set_next_val <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:next"), "w:val", val)
+  # xml2::xml_set_attr(xml2::xml_child(node, "w:next"), "w:val", val)
+  tag = "w:next"
+  attr = "w:val"
+  set_attr_val(node, val, tag, attr)
 }
 
 set_ui_priority_val <- function(node, val){
-  xml2::xml_attr(xml2::xml_child(node, "w:uiPriority"), "w:val", val)
+  # xml2::xml_attr(xml2::xml_child(node, "w:uiPriority"), "w:val", val)
+  tag = "w:uiPriority"
+  attr = "w:val"
+  set_attr_val(node, val, tag, attr)
 }
 
 set_unhide_when_used <- function(node, val){
@@ -95,11 +124,15 @@ set_p_shd <- function(node, val){
 }
 
 set_p_shd_val <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:shd"), "w:val", val)
+  tag = "w:pPr/w:shd"
+  attr = "w:val"
+  set_attr_val(node, val, tag, attr)
 }
 
 set_p_shd_color <- function(node, val){
-  xml2::xml_set_attr(xml2::xml_child(node, "w:pPr/w:shd"), "w:color", val)
+  tag = "w:pPr/w:shd"
+  attr = "w:color"
+  set_attr_val(node, val, tag, attr)
 }
 
 set_p_shd_theme_color <- function(node, val){
