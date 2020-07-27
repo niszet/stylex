@@ -26,6 +26,11 @@ is_u_val <- function(u){
   u %in% u_val
 }
 
+is_vert_align_val <- function(v){
+  valign <- c("superscript", "subscript")
+  v %in% valign
+}
+
 fontsize_to_pt <- function(sz){
   as.character(as.numeric(sz) / 2)
 }
