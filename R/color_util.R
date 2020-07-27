@@ -5,11 +5,23 @@ is_theme_color <- function(color){
   color %in% theme_color_name
 }
 
-is_shd_val <- function(shd){
+is_rpr_shd_val <- function(shd){
   # TODO NA is needed?
   shd_val_list <- c("clear", "solid", "pct5", "pct10", "pct12", "pct15", "pct20", "pct25", "pct30", "pct35", "pct37", "pct40", "pct45", "pct50", "pct55", "pct60", "pct62", "pct65", "pct70", "pct75", "pct80", "pct85", "pct87", "pct90", "pct95", "horzStripe", "vertStripe", "reverseDiagStripe", "diagStripe", "diagCross", "diagCross", "thinHorzStripe", "thinVertStripe", "thinReverseDiagStripe", "thinDiagStripe", "thinHorzCross", "thinDiagCross")
   shd %in% shd_val_list
+
 }
+
+is_theme_tint <- function(tt){
+  theme_tint <- c(NA, "33", "66", "99", NA, NA)
+  tt %in% theme_tint
+}
+
+is_theme_shade <- function(tt){
+  theme_shade <- c(NA, NA, NA, NA, "BF", "80")
+  tt %in% theme_shade
+}
+
 
 is_hex <- function(color_code){
   stringr::str_detect(color_code, "^[0-9AaBbCcDdEeFf]{6}$")
@@ -40,11 +52,16 @@ pt_to_fontsize <- function(pt){
 }
 
 
+is_spacing_linerule <- function(sp){
+  ll = c("auto", NA)
+  sp %in% ll
+}
+
 function(){
 
-# theme_tint <- c(NA, "33", "66", "99", NA, NA)
+#
 
-# theme_shade <- c(NA, NA, NA, NA, "BF", "80")
+#
 
 
 # color_code_to_rgb
@@ -54,7 +71,6 @@ function(){
 #
 
 # sz value in ooxml is x2 times of pt in Word.
-
 
 
 misc <- c("center", "both", "around", "text", "dashSmallGap", "auto")
