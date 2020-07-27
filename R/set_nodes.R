@@ -542,6 +542,18 @@ set_r_u_color <- function(node, val){
   set_attr_val(node, val, tag, attr)
 }
 
+set_r_u_theme_color <- function(node, val){
+  tag = "w:rPr/w:u"
+  attr = "w:themeColor"
+  set_attr_val(node, val, tag, attr)
+}
+
+set_r_u_theme_tint <- function(node, val){
+  tag = "w:rPr/w:u"
+  attr = "w:themeTint"
+  set_attr_val(node, val, tag, attr)
+}
+
 set_r_em_val <- function(node, val){
   tag = "w:rPr/w:em"
   attr = "w:val"

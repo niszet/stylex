@@ -162,6 +162,8 @@ style2df <- function(style_xml){
 
     r_u_val = xml2::xml_attr(xml2::xml_child(style_xml, "w:rPr/w:u"), "val"),
     r_u_color = xml2::xml_attr(xml2::xml_child(style_xml, "w:rPr/w:u"), "color"),
+    r_u_themeColor = xml2::xml_attr(xml2::xml_child(style_xml, "w:rPr/w:u"), "themeColor"),
+    r_u_themeTint = xml2::xml_attr(xml2::xml_child(style_xml, "w:rPr/w:u"), "themeTint"),
     r_em_val = xml2::xml_attr(xml2::xml_child(style_xml, "w:rPr/w:em"), "val"),
 
     r_rFonts = dplyr::if_else(!is.na(xml2::xml_child(style_xml, "w:rPr/w:rFonts")), T, NA),

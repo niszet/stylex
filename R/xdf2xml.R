@@ -117,6 +117,8 @@ h[["r_shadow"]] <- set_r_shadow
 h[["r_vanish"]] <- set_r_vanish
 h[["r_u_val"]] <- set_r_u_val
 h[["r_u_color"]] <- set_r_u_color
+h[["r_u_theme_color"]] <- set_r_u_theme_color
+h[["r_u_theme_tint"]] <- set_r_u_theme_tint
 h[["r_em_val"]] <- set_r_em_val
 
 #h[["r_r_fonts"]] <- set_r_r_fonts

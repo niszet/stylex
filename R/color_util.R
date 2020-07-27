@@ -22,7 +22,7 @@ is_em_val <- function(em){
 
 is_u_val <- function(u){
   # TODO add other options
-  u_val <- c("double", NA)
+  u_val <- c("words", "single", "double", "thick", "dotted", "dottedHeavy", "dash", "dashedHeavy", "dashLong", "dashLongHeavy", "dotDash", "dotDashHeavy", "dotDotDash", "dashDotDotHeavy", "wave", "wavyHeavy", "wavyDouble", NA)
   u %in% u_val
 }
 
