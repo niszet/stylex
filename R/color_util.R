@@ -22,6 +22,20 @@ is_theme_shade <- function(tt){
   tt %in% theme_shade
 }
 
+is_textbox_tightWrap <- function(tt){
+  tl <- c("allLines", "firstAndLastLine", "firstLineOnly", "lastLineOnly")
+  tt %in% tl
+}
+
+is_widow_control <- function(tt){
+  tl <- c("pageBreakBefore", "suppressLineNumbers", "suppressAutoHyphens")
+  tt %in% tl
+}
+
+is_text_alignment <- function(tt){
+  tl <- c("top","center", "baseline", "bottom", NA)
+  tt %in% tl
+}
 
 is_hex <- function(color_code){
   stringr::str_detect(color_code, "^[0-9AaBbCcDdEeFf]{6}$")
