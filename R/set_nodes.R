@@ -386,6 +386,17 @@ set_p_word_wrap_val <- function(node, val){
   set_attr_val(node, val, tag, attr)
 }
 
+# set_p_widow_control
+# set_p_textbox_tight_wrap
+# set_p_kinsoku_val
+# set_p_word_wrap_val
+# set_p_overflow_punct_val
+# set_p_top_line_punct
+# set_p_auto_space_de
+# set_p_auto_space_dn
+# set_p_text_alignment_val
+
+
 
 
 # --- rPr ---
