@@ -83,6 +83,8 @@ set_attr_val <- function(node, val, tag, attr){
     return(NULL) # TODO: NULL is OK?
   }
 
+  warn_if_not_valid_val(val, tag)
+
   if(is.na(xml2::xml_child(node, tag))){
     warning(stringr::str_c(tag, " is missing. ", val, "is not set to ", attr))
   }else{
@@ -392,6 +394,7 @@ set_p_widow_control_val <- function(node, val){
   set_attr_val(node, val, tag, attr)
 }
 
+
 set_p_textbox_tight_wrap_val <- function(node, val){
   tag = "w:pPr/w:textboxTightWrap"
   attr = "w:val"
@@ -616,6 +619,7 @@ set_r_em_val <- function(node, val){
 set_r_vert_align_val <- function(node, val){
   tag = "w:rPr/w:vertAlign"
   attr = "w:val"
+
   set_attr_val(node, val, tag, attr)
 }
 
