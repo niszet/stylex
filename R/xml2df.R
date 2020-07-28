@@ -73,14 +73,14 @@ style2df <- function(style_xml){
     pPr_pBdr_bottom_themeShade = xml2::xml_attr(xml2::xml_child(style_xml, "w:pPr/w:pBdr/w:bottom"), "themeShade"),
 
 
-    p_widowControl = xml2::xml_attr(xml2::xml_child(style_xml, "w:pPr/w:widowControl"), "val"),
-    p_textboxTightWrap = xml2::xml_attr(xml2::xml_child(style_xml, "w:pPr/w:textboxTightWrap"), "val"),
+    p_widowControl_val = xml2::xml_attr(xml2::xml_child(style_xml, "w:pPr/w:widowControl"), "val"),
+    p_textboxTightWrap_val = xml2::xml_attr(xml2::xml_child(style_xml, "w:pPr/w:textboxTightWrap"), "val"),
     p_kinsoku_val = xml2::xml_attr(xml2::xml_child(style_xml, "w:pPr/w:kinsoku"), "val"),
     p_wordWrap_val = xml2::xml_attr(xml2::xml_child(style_xml, "w:pPr/w:wordWrap"), "val"),
     p_overflowPunct_val = xml2::xml_attr(xml2::xml_child(style_xml, "w:pPr/w:overflowPunct"), "val"),
     p_topLinePunct = dplyr::if_else(!is.na(xml2::xml_child(style_xml, "w:pPr/w:topLinePunct")), T, NA),
-    p_autoSpaceDE = xml2::xml_attr(xml2::xml_child(style_xml, "w:pPr/w:autoSpaceDE"), "val"),
-    p_autoSpaceDN = xml2::xml_attr(xml2::xml_child(style_xml, "w:pPr/w:autoSpaceDN"), "val"),
+    p_autoSpaceDE_val = xml2::xml_attr(xml2::xml_child(style_xml, "w:pPr/w:autoSpaceDE"), "val"),
+    p_autoSpaceDN_val = xml2::xml_attr(xml2::xml_child(style_xml, "w:pPr/w:autoSpaceDN"), "val"),
     p_textAlignment_val = xml2::xml_attr(xml2::xml_child(style_xml, "w:pPr/w:textAlignment"), "val"),
 
     p_shd = dplyr::if_else(!is.na(xml2::xml_child(style_xml, "w:pPr/w:shd")), T, NA),

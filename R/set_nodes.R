@@ -386,17 +386,59 @@ set_p_word_wrap_val <- function(node, val){
   set_attr_val(node, val, tag, attr)
 }
 
-# set_p_widow_control
-# set_p_textbox_tight_wrap
-# set_p_kinsoku_val
-# set_p_word_wrap_val
-# set_p_overflow_punct_val
-# set_p_top_line_punct
-# set_p_auto_space_de
-# set_p_auto_space_dn
-# set_p_text_alignment_val
+set_p_widow_control_val <- function(node, val){
+  tag = "w:pPr/w:widowControl"
+  attr = "w:val"
+  set_attr_val(node, val, tag, attr)
+}
 
+set_p_textbox_tight_wrap_val <- function(node, val){
+  tag = "w:pPr/w:textboxTightWrap"
+  attr = "w:val"
+  set_attr_val(node, val, tag, attr)
+}
 
+set_p_kinsoku_val <- function(node, val){
+  tag = "w:pPr/w:kinsoku"
+  attr = "w:val"
+  set_attr_val(node, val, tag, attr)
+}
+
+set_p_word_wrap_val <- function(node, val){
+  tag = "w:pPr/w:wordWrap"
+  attr = "w:val"
+  set_attr_val(node, val, tag, attr)
+}
+
+set_p_overflow_punct_val <- function(node, val){
+  tag = "w:pPr/w:overflowPunct"
+  attr = "w:val"
+  set_attr_val(node, val, tag, attr)
+}
+
+set_p_top_line_punct <- function(node, val){
+  ptag = "w:pPr"
+  ctag = "w:topLinePunct"
+  set_exist_tag(node, val, ptag, ctag)
+}
+
+set_p_auto_space_de_val <- function(node, val){
+  tag = "w:pPr/w:autoSpaceDE"
+  attr = "w:val"
+  set_attr_val(node, val, tag, attr)
+}
+
+set_p_auto_space_dn_val <- function(node, val){
+  tag = "w:pPr/w:autoSpaceDN"
+  attr = "w:val"
+  set_attr_val(node, val, tag, attr)
+}
+
+set_p_text_alignment_val <- function(node, val){
+  tag = "w:pPr/w:textAlignment"
+  attr = "w:val"
+  set_attr_val(node, val, tag, attr)
+}
 
 
 # --- rPr ---

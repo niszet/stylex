@@ -47,15 +47,15 @@ h[["semi_hidden"]] <- set_semi_hidden
 #h[["p_pr_p_bdr_bottom_theme_tint"]] <- set_p_pr_p_bdr_bottom_theme_tint
 #h[["p_pr_p_bdr_bottom_theme_shade"]] <- set_p_pr_p_bdr_bottom_theme_shade
 
-#h[["p_widow_control"]] <- set_p_widow_control
-#h[["p_textbox_tight_wrap"]] <- set_p_textbox_tight_wrap
-#h[["p_kinsoku_val"]] <- set_p_kinsoku_val
-#h[["p_word_wrap_val"]] <- set_p_word_wrap_val
-#h[["p_overflow_punct_val"]] <- set_p_overflow_punct_val
-#h[["p_top_line_punct"]] <- set_p_top_line_punct
-#h[["p_auto_space_de"]] <- set_p_auto_space_de
-#h[["p_auto_space_dn"]] <- set_p_auto_space_dn
-#h[["p_text_alignment_val"]] <- set_p_text_alignment_val
+h[["p_widow_control_val"]] <- set_p_widow_control_val
+h[["p_textbox_tight_wrap_val"]] <- set_p_textbox_tight_wrap_val
+h[["p_kinsoku_val"]] <- set_p_kinsoku_val
+h[["p_word_wrap_val"]] <- set_p_word_wrap_val
+h[["p_overflow_punct_val"]] <- set_p_overflow_punct_val
+h[["p_top_line_punct"]] <- set_p_top_line_punct
+h[["p_auto_space_de_val"]] <- set_p_auto_space_de_val
+h[["p_auto_space_dn_val"]] <- set_p_auto_space_dn_val
+h[["p_text_alignment_val"]] <- set_p_text_alignment_val
 
 
 h[["p_shd"]] <- set_p_shd
