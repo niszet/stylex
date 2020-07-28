@@ -83,7 +83,7 @@ set_attr_val <- function(node, val, tag, attr){
     return(NULL) # TODO: NULL is OK?
   }
 
-  warn_if_not_valid_val(val, tag)
+  warn_if_not_valid_val(val, tag, attr)
 
   if(is.na(xml2::xml_child(node, tag))){
     warning(stringr::str_c(tag, " is missing. ", val, "is not set to ", attr))
