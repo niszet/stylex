@@ -97,8 +97,8 @@ is[["w:pPr/w:textAlignment/w:val"]] <- is_text_alignment
 # is[["w:pPr/w:"]] <- is_hex
 is[["w:rPr/w:em/w:val"]] <- is_em_val
 is[["w:rPr/w:u/w:val"]] <- is_u_val
- is[["w:rPr/w:vertAlign/w:val"]] <- is_vert_align_val
-# is[["w:pPr/w:"]] <- is_spacing_linerule
+is[["w:rPr/w:vertAlign/w:val"]] <- is_vert_align_val
+is[["w:pPr/w:spacing/w:lineRule"]] <- is_spacing_linerule
 
 
 

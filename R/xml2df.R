@@ -1,3 +1,60 @@
+style2dddf <- function(style_xml){
+  d = data.frame(
+    stringsAsFactors = FALSE,
+  docDefaults = dplyr::if_else(!is.na(xml2::xml_child(style_xml, "w:docDefaults")), T, NA),
+  rPrDefault = dplyr::if_else(!is.na(xml2::xml_child(style_xml, "w:docDefaults/w:rPrDefault")), T, NA),
+  rPrDefault_rPr = dplyr::if_else(!is.na(xml2::xml_child(style_xml, "w:docDefaults/w:rPrDefault/w:rPr")), T, NA),
+
+  rPrDefault_rPr_rFonts_asciiTheme =
+    xml2::xml_attr(xml2::xml_child(
+      style_xml, "w:docDefaults/w:rPrDefault/w:rPr/w:rFonts"), "asciiTheme"),
+  rPrDefault_rPr_rFonts_eastAsiaTheme =
+    xml2::xml_attr(xml2::xml_child(
+      style_xml, "w:docDefaults/w:rPrDefault/w:rPr/w:rFonts"), "eastAsiaTheme"),
+  rPrDefault_rPr_rFonts_hAnsiTheme =
+    xml2::xml_attr(xml2::xml_child(
+      style_xml, "w:docDefaults/w:rPrDefault/w:rPr/w:rFonts"), "hAnsiTheme"),
+  rPrDefault_rPr_rFonts_cstheme =
+    xml2::xml_attr(xml2::xml_child(
+      style_xml, "w:docDefaults/w:rPrDefault/w:rPr/w:rFonts"), "cstheme"),
+  rPrDefault_rPr_sz_val =
+    xml2::xml_attr(xml2::xml_child(
+      style_xml, "w:docDefaults/w:rPrDefault/w:rPr/w:sz"), "val"),
+  rPrDefault_rPr_szCs_val =
+    xml2::xml_attr(xml2::xml_child(
+      style_xml, "w:docDefaults/w:rPrDefault/w:rPr/w:szCs"), "val"),
+  rPrDefault_rPr_lang_val =
+    xml2::xml_attr(xml2::xml_child(
+      style_xml, "w:docDefaults/w:rPrDefault/w:rPr/w:lang"), "val"),
+  rPrDefault_rPr_lang_val =
+    xml2::xml_attr(xml2::xml_child(
+      style_xml, "w:docDefaults/w:rPrDefault/w:rPr/w:lang"), "eastAsia"),
+  rPrDefault_rPr_lang_val =
+    xml2::xml_attr(xml2::xml_child(
+      style_xml, "w:docDefaults/w:rPrDefault/w:rPr/w:lang"), "bidi"),
+
+  pPrDefault =
+    dplyr::if_else(!is.na(xml2::xml_child(
+      style_xml, "w:docDefaults/w:pPrDefault")), T, NA),
+  pPrDefault_pPr =
+    dplyr::if_else(!is.na(xml2::xml_child(
+      style_xml, "w:docDefaults/w:pPrDefault/w:pPr")), T, NA),
+  pPrDefault_p_spacing =
+    dplyr::if_else(!is.na(xml2::xml_child(
+      style_xml, "w:docDefaults/w:pPrDefault/w:spacing")), T, NA),
+  pPrDefault_p_spacing_after =
+    xml2::xml_attr(xml2::xml_child(
+      style_xml, "w:docDefaults/w:pPrDefault/w:spacing"), "after")
+
+  )
+
+  d <- janitor::clean_names(d)
+
+  d
+
+}
+
+
 #' Convert xml object to data.frame
 #'
 #' Convertion from xml to data.frame for modification usability.
@@ -32,6 +89,8 @@ style2df <- function(style_xml){
     autoRedefine = dplyr::if_else(!is.na(xml2::xml_child(style_xml, "w:autoRedefine")), T, NA),
 
     semiHidden = dplyr::if_else(!is.na(xml2::xml_child(style_xml, "w:semiHidden")), T, NA),
+
+
 
     pPr = dplyr::if_else(!is.na(xml2::xml_child(style_xml, "w:pPr")), T, NA),
 
