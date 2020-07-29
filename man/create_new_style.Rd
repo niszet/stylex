@@ -4,10 +4,10 @@
 \alias{create_new_style}
 \title{Create new style from reference style}
 \usage{
-create_new_style(df, style_name, ref_style_name = NULL, style_id = "auto")
+create_new_style(xml, style_name, ref_style_name = NULL, style_id = "auto")
 }
 \arguments{
-\item{df}{style data.frame}
+\item{xml}{style xml}
 
 \item{style_name}{style name}
 

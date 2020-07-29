@@ -1,13 +1,15 @@
 #' Create new style from reference style
 #'
-#' @param df style data.frame
+#' @param xml style xml
 #' @param style_name style name
 #' @param ref_style_name  reference style's name
 #' @param style_id new style id.
 #'
 #' @return new style by column?
 #'
-create_new_style <- function(df, style_name, ref_style_name = NULL, style_id = "auto"){
+create_new_style <- function(xml, style_name, ref_style_name = NULL, style_id = "auto"){
+
+  df <- style2df(xml)
 
   if(is.null(ref_style_name)){
     ref_style_name = "Normal"
@@ -21,7 +23,38 @@ create_new_style <- function(df, style_name, ref_style_name = NULL, style_id = "
   stopifnot(is_unique_style_id(df, style_id))
   stopifnot(is_unique_style_name(df, style_name))
 
-  # TODO: return what?
+  x <- xml2::xml_new_root(
+    "styles",
+    "Ignorable"="w14 w15 w16se w16cid w16 w16cex",
+    "xmlns:mc"="http://schemas.openxmlformats.org/markup-compatibility/2006",
+    "xmlns:r"="http://schemas.openxmlformats.org/officeDocument/2006/relationships",
+    "xmlns:w"="http://schemas.openxmlformats.org/wordprocessingml/2006/main",
+    "xmlns:w14"="http://schemas.microsoft.com/office/word/2010/wordml",
+    "xmlns:w15"="http://schemas.microsoft.com/office/word/2012/wordml",
+    "xmlns:w16cex"="http://schemas.microsoft.com/office/word/2018/wordml/cex",
+    "xmlns:w16cid"="http://schemas.microsoft.com/office/word/2016/wordml/cid",
+    "xmlns:w16"="http://schemas.microsoft.com/office/word/2018/wordml",
+    "xmlns:w16se"="http://schemas.microsoft.com/office/word/2015/wordml/symex"
+  )
+
+  node <- get_node_by_name(xml, ref_style_name)[[1]]
+
+  xml2::xml_add_child(x, node)
+
+  xml2::xml_set_attr(xml2::xml_child(x, "w:style"), "w:styleId", style_id)
+  xml2::xml_set_attr(xml2::xml_child(x, "w:style/w:name"), "w:val", style_name)
+
+  x <- xml2::xml_child(x)
+  y <- xml2::xml_attrs(x)
+
+  xml2::xml_attrs(x) <- NULL
+  xml2::xml_attrs(x) <- y[-which(names(y) %in% "xmlns:w")]
+
+  x
+
+  xml2::xml_add_child(xml, x)
+
+  xml
 
 }
 
