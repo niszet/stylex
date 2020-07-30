@@ -48,10 +48,9 @@ create_new_style <- function(xml, style_name, ref_style_name = NULL, style_id = 
   y <- xml2::xml_attrs(x)
 
   xml2::xml_attrs(x) <- NULL
+
+  # xml2::xml_attrs(x) <- y[!names(y) %in% "xmlns:w"]
   xml2::xml_attrs(x) <- y[-which(names(y) %in% "xmlns:w")]
-
-  x
-
   xml2::xml_add_child(xml, x)
 
   xml

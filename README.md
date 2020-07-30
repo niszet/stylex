@@ -7,6 +7,9 @@ stylex
 <!-- badges: start -->
 <!-- badges: end -->
 
+\*\* NOTE \*\* This package is under an experimental phase. It is still
+under developping…
+
 `stylex` is an R package to modify style setting in docx file. This is
 especially for Pandoc’s docx input aka `reference.docx`. But any other
 docx file can be used.
@@ -26,6 +29,10 @@ You can install `stylex` package from
 
 Example 1
 ---------
+
+`stylex` package provides a way to modify docx file through a
+data.frame. By changing data.frame, many styles in target file can be
+modified simaltanaoutsly.
 
     library(stylex)
 
@@ -85,6 +92,20 @@ internal functions.
     stylex:::set_r_b(node, T)
 
     write_style(xml, file, "modified.docx")
+
+Example 3
+=========
+
+`stylex` package can create new style based on existing style. Now
+`create_new_style` is non-exported function.
+
+    library(stylex)
+
+    file = "sample.docx"
+    xml <- read_style_xml(file)
+    style_xml <- get_style_tags(xml)
+
+    modified_xml <- stylex:::create_new_style(style_xml, "Author_based_new_style", "Author")
 
 node structure
 ==============
