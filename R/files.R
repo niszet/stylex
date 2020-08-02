@@ -8,10 +8,10 @@
 #' @examples
 #'
 #' \dontrun{
-#'   read_style_xml("reference.docx")
+#'   read_docx("reference.docx")
 #' }
 #'
-read_style_xml <- function(file){
+read_docx <- function(file){
   tmpdir = fs::file_temp()
   officer::unpack_folder(file = file, folder = tmpdir)
   xml2::read_xml(fs::path_abs(fs::path(tmpdir, "word/styles.xml")))
@@ -26,10 +26,13 @@ read_style_xml <- function(file){
 #'
 #' @examples
 #' \dontrun{
-#' get_style_tags(xml)
+#' get_styles(xml)
 #' }
-get_style_tags <- function(xml){
-  xml2::xml_find_all(xml, "/w:styles/w:style")
+get_styles <- function(xml){
+
+  # TODO: replace to following. because xml_nodeset is not adequate for some functions...
+  xml2::xml_find_first(xml, "/w:styles")
+  # xml2::xml_find_all(xml, "/w:styles/w:style")
 }
 
 #' Write docx file with original reference.docx and updated style xml
@@ -43,10 +46,10 @@ get_style_tags <- function(xml){
 #'
 #' @examples
 #' \dontrun{
-#'   write_style(xml, "reference.docx", "updated.docx")
+#'   write_docx(xml, "reference.docx", "updated.docx")
 #' }
 #'
-write_style <- function(style_xml, org_docx, new_docx){
+write_docx <- function(style_xml, org_docx, new_docx){
 
   tmpdir = fs::file_temp()
   officer::unpack_folder(file = org_docx, folder = tmpdir)

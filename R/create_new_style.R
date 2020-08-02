@@ -1,14 +1,17 @@
 #' Create new style from reference style
 #'
+#' Create a new style from reference style.
+#'
 #' @param xml style xml
-#' @param style_name style name
-#' @param ref_style_name  reference style's name
-#' @param style_id new style id.
+#' @param style_name new style name.
+#' @param ref_style_name reference style's name. Default is NULL.
+#' @param style_id new style id. Unique id in docx is required. By default, it has unique id.
 #'
 #' @return new style by column?
 #'
 create_new_style <- function(xml, style_name, ref_style_name = NULL, style_id = "auto"){
 
+  xml <- get_style_tags(xml)
   df <- style2df(xml)
 
   if(is.null(ref_style_name)){
@@ -23,6 +26,7 @@ create_new_style <- function(xml, style_name, ref_style_name = NULL, style_id = 
   stopifnot(is_unique_style_id(df, style_id))
   stopifnot(is_unique_style_name(df, style_name))
 
+  #
   x <- xml2::xml_new_root(
     "styles",
     "Ignorable"="w14 w15 w16se w16cid w16 w16cex",
@@ -49,9 +53,13 @@ create_new_style <- function(xml, style_name, ref_style_name = NULL, style_id = 
 
   xml2::xml_attrs(x) <- NULL
 
+  # Remove namespace related attribute.
+  # TODO add test about it. Dependency of xml2 behaviour.
   # xml2::xml_attrs(x) <- y[!names(y) %in% "xmlns:w"]
   xml2::xml_attrs(x) <- y[-which(names(y) %in% "xmlns:w")]
-  xml2::xml_add_child(xml, x)
+
+  xml2::xml_add_sibling(xml, x)
+  # xml2::xml_add_child(xml, x)
 
   xml
 

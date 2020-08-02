@@ -157,8 +157,8 @@ h[["r_em_val"]] <- set_r_em_val
 #' }
 #'
 update_xml <- function(docx_file, df){
-  xml <- read_style_xml(docx_file)
-  style_xml <- get_style_tags(xml)
+  xml <- read_docx(docx_file)
+  style_xml <- get_styles(xml)
   org_df <- style2df(style_xml)
   d_df <- dplyr::setdiff(df, org_df)
 

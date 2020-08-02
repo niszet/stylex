@@ -1,3 +1,2 @@
-test_xml <- xml2::read_xml("test.xml")
-test_styles <- get_style_tags(test_xml)
-test_df <- style2df(test_styles)
+# because xml2 is stateful, load related functions are moved in all test spec.
+# this is based on xml2's behavior.

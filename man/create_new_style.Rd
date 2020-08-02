@@ -9,15 +9,15 @@ create_new_style(xml, style_name, ref_style_name = NULL, style_id = "auto")
 \arguments{
 \item{xml}{style xml}
 
-\item{style_name}{style name}
+\item{style_name}{new style name.}
 
-\item{ref_style_name}{reference style's name}
+\item{ref_style_name}{reference style's name. Default is NULL.}
 
-\item{style_id}{new style id.}
+\item{style_id}{new style id. Unique id in docx is required. By default, it has unique id.}
 }
 \value{
 new style by column?
 }
 \description{
-Create new style from reference style
+Create a new style from reference style.
 }
