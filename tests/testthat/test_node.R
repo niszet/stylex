@@ -34,9 +34,9 @@ test_that("create new style", {
 
   docx_xml <- xml2::read_xml("test.xml")
   styles <- get_styles(docx_xml)
-  styles <- create_new_style(styles, "Hoge")
+  y <- create_new_style(styles, "Hoge")
   x <- stylex::get_node_by_name(styles, "Normal")
-  y <- stylex::get_node_by_name(styles, "Hoge")
+  # y <- stylex::get_node_by_name(styles, "Hoge")
 
   x <- dplyr::select(style2df(x), -c("style_id", "style_name_val"))
   y <- dplyr::select(style2df(y), -c("style_id", "style_name_val"))

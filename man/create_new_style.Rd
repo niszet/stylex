@@ -2,12 +2,12 @@
 % Please edit documentation in R/create_new_style.R
 \name{create_new_style}
 \alias{create_new_style}
-\title{Create new style from reference style}
+\title{Create a new style to reference style based on existing style}
 \usage{
 create_new_style(xml, style_name, ref_style_name = NULL, style_id = "auto")
 }
 \arguments{
-\item{xml}{style xml}
+\item{xml}{styles xml_node object}
 
 \item{style_name}{new style name.}
 
@@ -16,8 +16,8 @@ create_new_style(xml, style_name, ref_style_name = NULL, style_id = "auto")
 \item{style_id}{new style id. Unique id in docx is required. By default, it has unique id.}
 }
 \value{
-new style by column?
+xml_node object of new style
 }
 \description{
-Create a new style from reference style.
+Create a new style to reference style based on existing style.
 }

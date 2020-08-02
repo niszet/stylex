@@ -1,18 +1,18 @@
-#' Create new style from reference style
+#' Create a new style to reference style based on existing style
 #'
-#' Create a new style from reference style.
+#' Create a new style to reference style based on existing style.
 #'
-#' @param xml style xml
+#' @param xml styles xml_node object
 #' @param style_name new style name.
 #' @param ref_style_name reference style's name. Default is NULL.
 #' @param style_id new style id. Unique id in docx is required. By default, it has unique id.
 #'
-#' @return new style by column?
+#' @return xml_node object of new style
 #'
 create_new_style <- function(xml, style_name, ref_style_name = NULL, style_id = "auto"){
 
-  xml <- get_style_tags(xml)
-  df <- style2df(xml)
+  style_xml <- get_style_tags(xml)
+  df <- style2df(style_xml)
 
   if(is.null(ref_style_name)){
     ref_style_name = "Normal"
@@ -41,7 +41,7 @@ create_new_style <- function(xml, style_name, ref_style_name = NULL, style_id = 
     "xmlns:w16se"="http://schemas.microsoft.com/office/word/2015/wordml/symex"
   )
 
-  node <- get_node_by_name(xml, ref_style_name)[[1]]
+  node <- get_node_by_name(style_xml, ref_style_name)[[1]]
 
   xml2::xml_add_child(x, node)
 
@@ -58,10 +58,12 @@ create_new_style <- function(xml, style_name, ref_style_name = NULL, style_id = 
   # xml2::xml_attrs(x) <- y[!names(y) %in% "xmlns:w"]
   xml2::xml_attrs(x) <- y[-which(names(y) %in% "xmlns:w")]
 
-  xml2::xml_add_sibling(xml, x)
+  # xml2::xml_add_sibling(style_xml, x)
   # xml2::xml_add_child(xml, x)
 
-  xml
+  # style_xml
+  # xml
+  x
 
 }
 
@@ -84,8 +86,11 @@ is_unique_style_name <- function(df, style_name){
 
 gen_unique_id <- function(ids){
   # z\d+ is a naming rule
-  x <- readr::parse_number(utils::tail(sort(ids[stringr::str_detect(ids, "z\\d+")]), n=1))
+  x <- readr::parse_number(utils::tail(sort(ids[stringr::str_detect(ids, "z\\d*")]), n=1))
   # x + 1
+  if(length(x)==0 || is.na(x) || is.null(x)){
+    x = 0
+  }
   stringr::str_c("z", x+1)
 }
 

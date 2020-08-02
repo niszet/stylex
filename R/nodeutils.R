@@ -1,4 +1,8 @@
-
+#' Get style tags of xml_nodeset under style tag of xml_node object
+#'
+#' @param styles xml_node object
+#'
+#' @return xml_nodeset object which contains style tags
 get_style_tags <- function(styles){
   xml2::xml_find_all(styles, "w:style")
 }
