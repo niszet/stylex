@@ -94,3 +94,23 @@ get_id_by_name <- function(style_xml, name){
 
   xml2::xml_attr(style_xml[xml2::xml_attr(xml2::xml_child(style_xml, "w:name"), "val")==name], "styleId")
 }
+
+
+
+#' Get attribution value from specified node
+#'
+#' @param node style tag as `xml_node`
+#' @param ctag child tag name as a character if needed.
+#' @param attr attribution name as a character vector.
+#'
+#' @return value of attribution
+#' @export
+#'
+get_attr_from_node <- function(node, ctag = NULL, attr){
+
+  if(!is.null(ctag)){
+    node <- xml2::xml_child(node, ctag)
+  }
+
+  val = xml2::xml_attr(node, attr)
+}

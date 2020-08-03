@@ -7,6 +7,8 @@
 #' @param ref_name referenced style name in the `xml` as a `character` vector. Default is `NULL`. It means `"Normal"` style.
 #' @param style_id new style id. Unique id in docx is required. By default, it has unique id.
 #'
+#' @export
+#'
 #' @return new style as a `xml_node` object.
 #'
 create_new_style <- function(styles_xml, style_name, ref_name = NULL, style_id = "auto"){
