@@ -10,7 +10,7 @@ read_docx(file)
 \item{file}{Input file path of reference document file (docx).}
 }
 \value{
-node object of xml2 which contains all tags in styles.xml file.
+\code{node_document} object which contains all tags in styles.xml file.
 }
 \description{
 Extract styles.xml file in the docx file

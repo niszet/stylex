@@ -100,17 +100,34 @@ get_id_by_name <- function(style_xml, name){
 #' Get attribution value from specified node
 #'
 #' @param node style tag as `xml_node`
-#' @param ctag child tag name as a character if needed.
 #' @param attr attribution name as a character vector.
+#' @param ctag child tag name as a character if needed.
 #'
 #' @return value of attribution
 #' @export
 #'
-get_attr_from_node <- function(node, ctag = NULL, attr){
+get_attr_from_node <- function(node, attr, ctag = NULL){
 
   if(!is.null(ctag)){
     node <- xml2::xml_child(node, ctag)
   }
 
   val = xml2::xml_attr(node, attr)
+}
+
+
+#' Check nodes are same except their id and name
+#'
+#' @param node1 xml_node which contains 1 style
+#' @param node2 xml_node which contains 1 style
+#'
+#' @return True if same. Others False.
+#' @export
+is_same_nodes <- function(node1, node2){
+
+  x <- dplyr::select(style2df(node1), -c("style_id", "style_name_val"))
+  y <- dplyr::select(style2df(node2), -c("style_id", "style_name_val"))
+
+  all.equal(y, y)
+
 }

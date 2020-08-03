@@ -7,13 +7,13 @@
 get_styles(xml)
 }
 \arguments{
-\item{xml}{expects xml2 node object which contains tags from styles.xml such as output of \code{read_style_xml}.}
+\item{xml}{\code{xml_node} object with \code{styles} tag as a root. See \code{read_docx}.}
 }
 \value{
-xml2 node object which contains style tags.
+\code{xml_nodeset} object which contains style tags.
 }
 \description{
-Extract only style tags and its children
+Peel off the \code{styles} tag from input \code{xml_node} object. \code{style} tags are contained under the \code{styles} tag.
 }
 \examples{
 \dontrun{

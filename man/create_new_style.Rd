@@ -4,19 +4,19 @@
 \alias{create_new_style}
 \title{Create a new style to reference style based on existing style}
 \usage{
-create_new_style(xml, style_name, ref_style_name = NULL, style_id = "auto")
+create_new_style(styles_xml, style_name, ref_name = NULL, style_id = "auto")
 }
 \arguments{
-\item{xml}{styles xml_node object}
+\item{styles_xml}{\code{xml_node} object with \code{styles} at the root.}
 
-\item{style_name}{new style name.}
+\item{style_name}{new style name as a \code{character} vector.}
 
-\item{ref_style_name}{reference style's name. Default is NULL.}
+\item{ref_name}{referenced style name in the \code{xml} as a \code{character} vector. Default is \code{NULL}. It means \code{"Normal"} style.}
 
 \item{style_id}{new style id. Unique id in docx is required. By default, it has unique id.}
 }
 \value{
-xml_node object of new style
+new style as a \code{xml_node} object.
 }
 \description{
 Create a new style to reference style based on existing style.
