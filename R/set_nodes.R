@@ -7,6 +7,25 @@ set_node_x <- function(node, val, tag, attr){
   }
 }
 
+# TODO check correct???
+get_node_x <- function(style_xml, tag_attr){
+  tag <- tag_attr[1]
+  attr <- tag_attr[2]
+
+  if(is.na(attr)){
+    # if(stringr::str_detect(tag, "/")) might not need.
+      dplyr::if_else(!is.na(xml2::xml_child(style_xml, tag)), T, NA)
+  }else{
+    if(is.na(tag)){
+      # style tag attr. type and so on
+      xml2::xml_attr(style_xml, attr)
+    }else{
+      xml2::xml_attr(xml2::xml_child(style_xml, tag), attr)
+    }
+  }
+}
+
+
 
 #' set existence to target tag
 #'
@@ -123,6 +142,9 @@ ext_parent_tag <- function(node, tag){
   }
 }
 
+
+# --------
+# followings will be removed.
 
 set_based_on_val <- function(node, val){
   tag = "w:basedOn"
