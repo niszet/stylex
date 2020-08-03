@@ -52,14 +52,41 @@ test_that("create new style", {
 
   docx_xml <- xml2::read_xml("test.xml")
   styles <- get_styles(docx_xml)
-  y <- create_new_style(styles, "Hoge")
+  y <- new_style_from_styles(styles, "Hoge")
   x <- stylex::get_node_by_name(styles, "Normal")
 
   testthat::expect_equal(is_same_nodes(x, y), TRUE)
 })
 
+test_that("read and write", {
 # check write_docx
-# xml2::write_xml(test_xml, "out.xml")
+
+# tools::md5sum() is not good for checking docx...
+  org_docx <- "sample.docx"
+  new_docx <- "test.docx"
+
+  x <- read_docx(org_docx)
+  write_docx(x, org_docx, new_docx)
+
+  testthat::expect_equal(unname(unclass(fs::file_size(org_docx))),
+                         unname(unclass(fs::file_size(new_docx))))
+
+  fs::file_delete(new_docx)
+})
+
 
 # check update_xml
+test_that("update xml", {
+
+  # not enough... everything should be updated
+
+  docx_xml <- read_docx("sample.docx")
+  styles <- get_styles(docx_xml)
+  d <- style2df(styles)
+  xml <- update_xml("sample.docx", d)
+
+  # Dummy test
+  testthat::expect_equal(xml, docx_xml)
+
+})
 

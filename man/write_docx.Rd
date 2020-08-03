@@ -4,14 +4,14 @@
 \alias{write_docx}
 \title{Write docx file with original reference.docx and updated style xml}
 \usage{
-write_docx(style_xml, org_docx, new_docx)
+write_docx(styles_xml, org_docx, new_docx)
 }
 \arguments{
-\item{style_xml}{updated style xml node object.}
+\item{styles_xml}{\code{xml_node} object with \code{styles}}
 
-\item{org_docx}{original reference.docx file name as a character.}
+\item{org_docx}{reference docx file name as a \code{character}. Use files except \code{word/styles.xml}.}
 
-\item{new_docx}{updated docx file name as a character.}
+\item{new_docx}{new docx file name as a \code{character}.}
 }
 \value{
 None

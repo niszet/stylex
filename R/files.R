@@ -39,9 +39,9 @@ get_styles <- function(xml){
 
 #' Write docx file with original reference.docx and updated style xml
 #'
-#' @param style_xml updated style xml node object.
-#' @param org_docx original reference.docx file name as a character.
-#' @param new_docx updated docx file name as a character.
+#' @param styles_xml `xml_node` object with `styles`
+#' @param org_docx reference docx file name as a `character`. Use files except `word/styles.xml`.
+#' @param new_docx new docx file name as a `character`.
 #'
 #' @return None
 #' @export
@@ -51,14 +51,15 @@ get_styles <- function(xml){
 #'   write_docx(xml, "reference.docx", "updated.docx")
 #' }
 #'
-write_docx <- function(style_xml, org_docx, new_docx){
+write_docx <- function(styles_xml, org_docx, new_docx){
 
   tmpdir = fs::file_temp()
   officer::unpack_folder(file = org_docx, folder = tmpdir)
-  # x = xml2::read_xml(fs::path_abs(fs::path(tmpdir, "word/styles.xml")))
-  # style_all <- xml2::xml_find_all(x, "/w:styles/w:style")
 
-  xml2::write_xml(style_xml, fs::path_abs(fs::path(tmpdir, "word/styles.xml")), format="format_whitespace")
+  xml2::write_xml(styles_xml,
+                  fs::path_abs(fs::path(tmpdir, "word/styles.xml")),
+                  format="format_whitespace")
+
   officer::pack_folder(new_docx, folder = tmpdir)
 
   fs::dir_delete(tmpdir)

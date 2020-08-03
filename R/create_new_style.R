@@ -11,7 +11,7 @@
 #'
 #' @return new style as a `xml_node` object.
 #'
-create_new_style <- function(styles_xml, style_name, ref_name = NULL, style_id = "auto"){
+new_style_from_styles <- function(styles_xml, style_name, ref_name = NULL, style_id = "auto"){
 
   style_xml <- get_style_tags(styles_xml)
   df <- style2df(style_xml)
@@ -28,20 +28,7 @@ create_new_style <- function(styles_xml, style_name, ref_name = NULL, style_id =
   stopifnot(is_unique_style_id(df, style_id))
   stopifnot(is_unique_style_name(df, style_name))
 
-  #
-  x <- xml2::xml_new_root(
-    "styles",
-    "Ignorable"="w14 w15 w16se w16cid w16 w16cex",
-    "xmlns:mc"="http://schemas.openxmlformats.org/markup-compatibility/2006",
-    "xmlns:r"="http://schemas.openxmlformats.org/officeDocument/2006/relationships",
-    "xmlns:w"="http://schemas.openxmlformats.org/wordprocessingml/2006/main",
-    "xmlns:w14"="http://schemas.microsoft.com/office/word/2010/wordml",
-    "xmlns:w15"="http://schemas.microsoft.com/office/word/2012/wordml",
-    "xmlns:w16cex"="http://schemas.microsoft.com/office/word/2018/wordml/cex",
-    "xmlns:w16cid"="http://schemas.microsoft.com/office/word/2016/wordml/cid",
-    "xmlns:w16"="http://schemas.microsoft.com/office/word/2018/wordml",
-    "xmlns:w16se"="http://schemas.microsoft.com/office/word/2015/wordml/symex"
-  )
+  x <- create_styles_root()
 
   node <- get_node_by_name(style_xml, ref_name)[[1]]
 
@@ -68,6 +55,68 @@ create_new_style <- function(styles_xml, style_name, ref_name = NULL, style_id =
   x
 
 }
+
+
+copy_style_node <- function(style_node, style_name){
+
+  df <- style2df(style_node)
+
+  style_id = gen_unique_id(get_style_ids(df))
+
+  stopifnot(is_unique_style_id(df, style_id))
+  stopifnot(is_unique_style_name(df, style_name))
+
+  x <- create_styles_root()
+
+  xml2::xml_add_child(x, style_node)
+
+  xml2::xml_set_attr(x, "w:styleId", style_id)
+  xml2::xml_set_attr(xml2::xml_child(x, "w:name"), "w:val", style_name)
+
+  x <- xml2::xml_child(x)
+  y <- xml2::xml_attrs(x)
+
+  xml2::xml_attrs(x) <- NULL
+
+  # Remove namespace related attribute.
+  # TODO add test about it. Dependency of xml2 behaviour.
+  # xml2::xml_attrs(x) <- y[!names(y) %in% "xmlns:w"]
+  xml2::xml_attrs(x) <- y[-which(names(y) %in% "xmlns:w")]
+
+  x
+}
+
+
+new_style_from_df <- function(df){
+  # data.frame only contains styles?
+
+}
+
+
+add_style_to_styles <- function(styles_xml, style_node){
+  stopifnot(class(styles_xml)=="xml_nodeset")
+  stopifnot(class(style_node)=="xml_node")
+  xml2::xml_add_child(styles_xml, style_node)
+}
+
+create_styles_root <- function(){
+  x <- xml2::xml_new_root(
+    "styles",
+    "Ignorable"="w14 w15 w16se w16cid w16 w16cex",
+    "xmlns:mc"="http://schemas.openxmlformats.org/markup-compatibility/2006",
+    "xmlns:r"="http://schemas.openxmlformats.org/officeDocument/2006/relationships",
+    "xmlns:w"="http://schemas.openxmlformats.org/wordprocessingml/2006/main",
+    "xmlns:w14"="http://schemas.microsoft.com/office/word/2010/wordml",
+    "xmlns:w15"="http://schemas.microsoft.com/office/word/2012/wordml",
+    "xmlns:w16cex"="http://schemas.microsoft.com/office/word/2018/wordml/cex",
+    "xmlns:w16cid"="http://schemas.microsoft.com/office/word/2016/wordml/cid",
+    "xmlns:w16"="http://schemas.microsoft.com/office/word/2018/wordml",
+    "xmlns:w16se"="http://schemas.microsoft.com/office/word/2015/wordml/symex"
+  )
+
+  x
+}
+
 
 get_style_names <- function(df){
   df[["style_name_val"]]

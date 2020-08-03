@@ -157,6 +157,8 @@ h[["r_em_val"]] <- set_r_em_val
 #' }
 #'
 update_xml <- function(docx_file, df){
+  # TODO: use xml. not docx file.
+
   xml <- read_docx(docx_file)
   style_xml <- get_styles(xml)
   org_df <- style2df(style_xml)
