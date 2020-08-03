@@ -68,6 +68,10 @@ copy_style_node <- function(style_node, style_name){
 
   df <- style2df(style_node)
 
+  if(class(style_node)=="xml_nodeset"){
+    style_node <- style_node[[1]]
+  }
+
   style_id = gen_unique_id(get_style_ids(df))
 
   stopifnot(is_unique_style_id(df, style_id))
@@ -108,7 +112,9 @@ delete_style_from_styles <- function(styles_xml, style_name){
 styles_to_styles <- function(style_nodes){
   # must be tested
   x <- create_styles_root()
-  xml2::xml_add_child(x, style_nodes)
+  for(style in style_nodes){
+    xml2::xml_add_child(x, style)
+  }
 }
 
 
@@ -131,8 +137,8 @@ get_styles <- function(xml){
 
 
 add_style_to_styles <- function(styles_xml, style_node){
-  # stopifnot(class(styles_xml)=="xml_node")
-  # stopifnot(class(style_node)=="xml_node")
+  stopifnot("xml_node" %in% class(styles_xml))
+  stopifnot(class(style_node)=="xml_node")
   xml2::xml_add_child(styles_xml, style_node)
 }
 

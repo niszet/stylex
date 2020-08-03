@@ -7,7 +7,7 @@
 #'
 #' @return xml style node object after modification
 #'
-set_exist_tag <- function(node, val, ptag, ctag){
+set_exist_tag_pc <- function(node, val, ptag, ctag){
   sep <- "/"
 
   # TODO: ext_parent_tag is here
@@ -45,23 +45,21 @@ set_exist_tag_wo_ctag <- function(node, val, tag){
 
 
 
-set_exist_tag2 <- function(node, val, tag){
+set_exist_tag <- function(node, val, tag){
 
-  # TODO: ext_parent_tag is here
+  # TODO actually needed??
   if(!ext_parent_tag(node, tag)){
     warning(tag, " : parent tag is missing")
     return(NULL) # NULL is OK?
   }
 
-  if(is.na(val)){
-    if(!is.na(xml2::xml_child(node, tag))){
-      xml2::xml_remove(xml2::xml_child(node, tag))
-    }
+  if(stringr::str_detect(tag, "/")){
+    tags <- stringr::str_split(tag, "/")[[1]]
+    set_exist_tag_pc(node, val, tags[1], tags[2])
   }else{
-    if(is.na(xml2::xml_child(node, tag))){
-      xml2::xml_add_child(node, tag)
-    }
+    set_exist_tag_wo_ctag(node, val, tag)
   }
+
 }
 
 
@@ -78,7 +76,7 @@ set_attr_val <- function(node, val, tag, attr){
   # xml2 needs w: in xml_set_attr. but not need in xml_attr...
   attr_wo_w <- stringr::str_replace(string = attr, pattern = "w:", replacement = "")
 
-  if(!ext_parent_tag(tag)){
+  if(!ext_parent_tag(node, tag)){
     warning(tag, " : parent tag is missing")
     return(NULL) # TODO: NULL is OK?
   }
@@ -109,8 +107,9 @@ set_attr_val <- function(node, val, tag, attr){
 
 
 ext_parent_tag <- function(node, tag){
-  if(stringr::str_match(string = tag, pattern = "/")){
-    tags <- stringr::str_split(tag, "/")
+  # TODO: pattern should be precise? (like \S+/\S+ ?)
+  if(stringr::str_detect(string = tag, pattern = "/")){
+    tags <- stringr::str_split(tag, "/")[[1]]
     !is.na(xml2::xml_child(node, tags[1]))
   }else{
     TRUE
@@ -196,9 +195,11 @@ set_p_shd_theme_fill <- function(node, val){
   set_attr_val(node, val, tag, attr)
 }
 
-set_p_shd_theme_fill_tint <- function(node, val=c("33", "66", "99", NA)){
+set_p_shd_theme_fill_tint <- function(node, val){
+
   tag = "w:pPr/w:shd"
   attr = "w:themeFillTint"
+  warn_if_not_valid_val(val, node, attr)
   set_attr_val(node, val, tag, attr)
 }
 
@@ -293,15 +294,13 @@ set_p_ind_first_line_chars <- function(node, val){
 }
 
 set_p_contextual_spacing <- function(node, val){
-  ptag = "w:pPr"
-  ctag = "w:contextualSpacing"
-  set_exist_tag(node, val, ptag, ctag)
+  tag = "w:pPr/w:contextualSpacing"
+  set_exist_tag(node, val, tag)
 }
 
 set_p_jc <- function(node, val){
-  ptag = "w:pPr"
-  ctag = "w:jc"
-  set_exist_tag(node, val, ptag, ctag)
+  tag = "w:pPr/w:jc"
+  set_exist_tag(node, val, tag)
 }
 
 set_p_jc_val <- function(node, val){
@@ -311,21 +310,18 @@ set_p_jc_val <- function(node, val){
 }
 
 set_p_tabs <- function(node, val){
-  ptag = "w:pPr"
-  ctag = "w:tabs"
-  set_exist_tag(node, val, ptag, ctag)
+  tag = "w:pPr/w:tabs"
+  set_exist_tag(node, val, tag)
 }
 
 set_p_snap_to_grid <- function(node, val){
-  ptag = "w:pPr"
-  ctag = "w:snapToGrid"
-  set_exist_tag(node, val, ptag, ctag)
+  tag = "w:pPr/w:snapToGrid"
+  set_exist_tag(node, val, tag)
 }
 
 set_p_frame <- function(node, val){
-  ptag = "w:pPr"
-  ctag = "w:framePr"
-  set_exist_tag(node, val, ptag, ctag)
+  tag = "w:pPr/w:framePr"
+  set_exist_tag(node, val, tag)
 }
 
 set_p_frame_wrap <- function(node, val){
@@ -353,9 +349,8 @@ set_p_frame_y <- function(node, val){
 }
 
 set_p_outline_lvl <- function(node, val){
-  ptag = "w:pPr"
-  ctag = "w:outlineLvl"
-  set_exist_tag(node, val, ptag, ctag)
+  tag = "w:pPr/w:outlineLvl"
+  set_exist_tag(node, val, tag)
 }
 
 set_p_outline_lvl_val <- function(node, val){
@@ -365,21 +360,18 @@ set_p_outline_lvl_val <- function(node, val){
 }
 
 set_p_keep_next <- function(node, val){
-  ptag = "w:pPr"
-  ctag = "w:keepNext"
-  set_exist_tag(node, val, ptag, ctag)
+  tag = "w:pPr/w:keepNext"
+  set_exist_tag(node, val, tag)
 }
 
 set_p_keep_lines <- function(node, val){
-  ptag = "w:pPr"
-  ctag = "w:keepLines"
-  set_exist_tag(node, val, ptag, ctag)
+  tag = "w:pPr/w:keepLines"
+  set_exist_tag(node, val, tag)
 }
 
 set_p_word_wrap <- function(node, val){
-  ptag = "w:pPr"
-  ctag = "w:wordWrap"
-  set_exist_tag(node, val, ptag, ctag)
+  tag = "w:pPr/w:wordWrap"
+  set_exist_tag(node, val, tag)
 }
 
 set_p_word_wrap_val <- function(node, val){
@@ -420,9 +412,8 @@ set_p_overflow_punct_val <- function(node, val){
 }
 
 set_p_top_line_punct <- function(node, val){
-  ptag = "w:pPr"
-  ctag = "w:topLinePunct"
-  set_exist_tag(node, val, ptag, ctag)
+  tag = "w:pPr/w:topLinePunct"
+  set_exist_tag(node, val, tag)
 }
 
 set_p_auto_space_de_val <- function(node, val){
@@ -446,9 +437,8 @@ set_p_text_alignment_val <- function(node, val){
 
 # --- rPr ---
 set_r_pr <- function(node, val){
-  ptag = "w:pPr"
-  ctag = "w:keepLines"
-  set_exist_tag(node, val, ptag, ctag)
+  tag = "w:pPr/w:keepLines"
+  set_exist_tag(node, val, tag)
 }
 
 set_r_sz_val <- function(node, val){
@@ -509,81 +499,68 @@ set_r_color_theme_tint <- function(node, val){
 # ---
 
 set_r_b <- function(node, val){
-  ptag = "w:rPr"
-  ctag = "w:b"
-  set_exist_tag(node, val, ptag, ctag)
+  tag = "w:rPr/w:b"
+  set_exist_tag(node, val, tag)
 }
 
 set_r_i <- function(node, val){
-  ptag = "w:rPr"
-  ctag = "w:i"
-  set_exist_tag(node, val, ptag, ctag)
+  tag = "w:rPr/w:i"
+  set_exist_tag(node, val, tag)
 }
 
 set_r_i_cs <- function(node, val){
-  ptag = "w:rPr"
-  ctag = "w:iCs"
-  set_exist_tag(node, val, ptag, ctag)
+  tag = "w:rPr/w:iCs"
+  set_exist_tag(node, val, tag)
 }
 
 set_r_b_cs <- function(node, val){
-  ptag = "w:rPr"
-  ctag = "w:bCs"
-  set_exist_tag(node, val, ptag, ctag)
+  tag = "w:rPr/w:bCs"
+  set_exist_tag(node, val, tag)
 }
 
 set_r_caps <- function(node, val){
-  ptag = "w:rPr"
-  ctag = "w:caps"
-  set_exist_tag(node, val, ptag, ctag)
+  tag = "w:rPr/w:caps"
+  set_exist_tag(node, val, tag)
 }
 
 set_r_strike <- function(node, val){
-  ptag = "w:rPr"
-  ctag = "w:strike"
-  set_exist_tag(node, val, ptag, ctag)
+  tag = "w:rPr/w:strike"
+  set_exist_tag(node, val, tag)
 }
 
 set_r_emboss <- function(node, val){
-  ptag = "w:rPr"
-  ctag = "w:emboss"
-  set_exist_tag(node, val, ptag, ctag)
+  tag = "w:rPr/w:emboss"
+  set_exist_tag(node, val, tag)
 }
 
 set_r_small_caps <- function(node, val){
-  ptag = "w:rPr"
-  ctag = "w:smallCaps"
-  set_exist_tag(node, val, ptag, ctag)
+  tag = "w:rPr/w:smallCaps"
+  set_exist_tag(node, val, tag)
 }
 
 set_r_dstrike <- function(node, val){
-  ptag = "w:rPr"
-  ctag = "w:dstrike"
-  set_exist_tag(node, val, ptag, ctag)
+  tag = "w:rPr/w:dstrike"
+  set_exist_tag(node, val, tag)
 }
 
 set_r_imprint <- function(node, val){
-  ptag = "w:rPr"
-  ctag = "w:imprint"
-  set_exist_tag(node, val, ptag, ctag)
+  tag = "w:rPr/w:imprint"
+  set_exist_tag(node, val, tag)
 }
 
 set_r_outline <- function(node, val){
-  ptag = "w:rPr"
-  ctag = "w:outline"
-  set_exist_tag(node, val, ptag, ctag)
+  tag = "w:rPr/w:outline"
+  set_exist_tag(node, val, tag)
 }
 
 set_r_shadow <- function(node, val){
-  ptag = "w:rPr"
-  ctag = "w:shadow"
-  set_exist_tag(node, val, ptag, ctag)
+  tag = "w:rPr/w:shadow"
+  set_exist_tag(node, val, tag)
 }
 
 set_r_vanish <- function(node, val){
-  ptag = "w:rPr"
-  ctag = "w:vanish"
-  set_exist_tag(node, val, ptag, ctag)
+  tag = "w:rPr/w:vanish"
+  set_exist_tag(node, val, tag)
 }
 
 set_r_u_val <- function(node, val){

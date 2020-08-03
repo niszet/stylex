@@ -131,3 +131,15 @@ is_same_nodes <- function(node1, node2){
   all.equal(y, y)
 
 }
+
+
+is_exact_same_node <- function(node1, node2){
+  if(class(node1)!=class(node2)){
+    return(F)
+  }
+
+
+
+
+
+}

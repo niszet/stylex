@@ -90,3 +90,25 @@ test_that("update xml", {
 
 })
 
+test_that("copy node", {
+
+  docx_xml <- xml2::read_xml("test.xml")
+  styles <- get_styles(docx_xml)
+
+  x <- stylex::get_node_by_name(styles, "Normal")
+  y <- copy_style_node(x, "Hoge")
+
+  testthat::expect_equal(is_same_nodes(x, y), TRUE)
+
+})
+
+test_that("docDefault", {
+  # TODO: temporary check. after formal release of style2dddf, update this.
+
+  docx_xml <- xml2::read_xml("test.xml")
+  styles <- get_styles(docx_xml)
+
+  d <- style2dddf(styles)
+
+  testthat::expect_equal(is.data.frame(d), TRUE)
+})

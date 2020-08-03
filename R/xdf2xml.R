@@ -161,7 +161,8 @@ update_xml <- function(docx_file, df){
 
   xml <- read_docx(docx_file)
   style_xml <- get_styles(xml)
-  org_df <- style2df(style_xml)
+  org_df <- purrr::map_df(style2df(style_xml), as.character)
+  df <- purrr::map_df(df, as.character)
   d_df <- dplyr::setdiff(df, org_df)
 
   for (x in d_df[["style_id"]]) {
