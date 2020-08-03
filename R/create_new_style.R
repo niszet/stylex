@@ -1,7 +1,5 @@
 #' Create a new style to reference style based on existing style
 #'
-#' Create a new style to reference style based on existing style.
-#'
 #' @param styles_xml `xml_node` object with `styles` at the root.
 #' @param style_name new style name as a `character` vector.
 #' @param ref_name referenced style name in the `xml` as a `character` vector. Default is `NULL`. It means `"Normal"` style.
@@ -32,7 +30,8 @@ new_style_from_styles <- function(styles_xml, style_name, ref_name = NULL, style
 
   node <- get_node_by_name(style_xml, ref_name)[[1]]
 
-  xml2::xml_add_child(x, node)
+  add_style_to_styles(x, node)
+  # xml2::xml_add_child(x, node)
 
   xml2::xml_set_attr(xml2::xml_child(x, "w:style"), "w:styleId", style_id)
   xml2::xml_set_attr(xml2::xml_child(x, "w:style/w:name"), "w:val", style_name)
@@ -57,6 +56,14 @@ new_style_from_styles <- function(styles_xml, style_name, ref_name = NULL, style
 }
 
 
+#' Make a style node from reference node
+#'
+#' @param style_node reference style node of `xml_node`
+#' @param style_name name for new style
+#'
+#' @return new style node of `xml_node`
+#' @export
+#'
 copy_style_node <- function(style_node, style_name){
 
   df <- style2df(style_node)
@@ -68,7 +75,8 @@ copy_style_node <- function(style_node, style_name){
 
   x <- create_styles_root()
 
-  xml2::xml_add_child(x, style_node)
+  add_style_to_styles(x, style_node)
+  # xml2::xml_add_child(x, style_node)
 
   xml2::xml_set_attr(x, "w:styleId", style_id)
   xml2::xml_set_attr(xml2::xml_child(x, "w:name"), "w:val", style_name)
@@ -92,6 +100,35 @@ new_style_from_df <- function(df){
 
 }
 
+delete_style_from_styles <- function(styles_xml, style_name){
+
+}
+
+
+styles_to_styles <- function(style_nodes){
+  # must be tested
+  x <- create_styles_root()
+  xml2::xml_add_child(x, style_nodes)
+}
+
+
+#' Extract only style tags and its children
+#'
+#' Peel off the `styles` tag from input `xml_node` object. `style` tags are contained under the `styles` tag.
+#'
+#' @param xml `xml_node` object with `styles` tag as a root. See `read_docx`.
+#'
+#' @return `xml_nodeset` object which contains style tags.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' get_styles(xml)
+#' }
+get_styles <- function(xml){
+  xml2::xml_find_first(xml, "/w:styles")
+}
+
 
 add_style_to_styles <- function(styles_xml, style_node){
   stopifnot(class(styles_xml)=="xml_nodeset")
@@ -99,6 +136,12 @@ add_style_to_styles <- function(styles_xml, style_node){
   xml2::xml_add_child(styles_xml, style_node)
 }
 
+
+
+#' Internal function for making xml_node with style at the top
+#'
+#' @return xml_node with styles root.
+#'
 create_styles_root <- function(){
   x <- xml2::xml_new_root(
     "styles",
@@ -122,6 +165,12 @@ get_style_names <- function(df){
   df[["style_name_val"]]
 }
 
+#' style id vector
+#'
+#' @param df styles data.frame
+#'
+#' @return character vector of style id in df.
+#'
 get_style_ids <- function(df){
   df[["style_id"]]
 }
@@ -135,9 +184,19 @@ is_unique_style_name <- function(df, style_name){
 }
 
 
+#' Title
+#'
+#' @param ids style id character vector
+#'
+#' @return character of style id
+#'
 gen_unique_id <- function(ids){
   # z\d+ is a naming rule
-  x <- readr::parse_number(utils::tail(sort(ids[stringr::str_detect(ids, "z\\d*")]), n=1))
+  x <- readr::parse_number(
+    utils::tail(
+      sort(ids[stringr::str_detect(ids, "z\\d*")]),
+      n=1))
+
   # x + 1
   if(length(x)==0 || is.na(x) || is.null(x)){
     x = 0

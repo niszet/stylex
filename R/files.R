@@ -17,26 +17,6 @@ read_docx <- function(file){
   xml2::read_xml(fs::path_abs(fs::path(tmpdir, "word/styles.xml")))
 }
 
-#' Extract only style tags and its children
-#'
-#' Peel off the `styles` tag from input `xml_node` object. `style` tags are contained under the `styles` tag.
-#'
-#' @param xml `xml_node` object with `styles` tag as a root. See `read_docx`.
-#'
-#' @return `xml_nodeset` object which contains style tags.
-#' @export
-#'
-#' @examples
-#' \dontrun{
-#' get_styles(xml)
-#' }
-get_styles <- function(xml){
-
-  # TODO: replace to following. because xml_nodeset is not adequate for some functions...
-  xml2::xml_find_first(xml, "/w:styles")
-  # xml2::xml_find_all(xml, "/w:styles/w:style")
-}
-
 #' Write docx file with original reference.docx and updated style xml
 #'
 #' @param styles_xml `xml_node` object with `styles`

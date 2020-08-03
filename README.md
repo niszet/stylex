@@ -8,6 +8,8 @@ stylex
 
 [![Codecov test
 coverage](https://codecov.io/gh/niszet/stylex/branch/master/graph/badge.svg)](https://codecov.io/gh/niszet/stylex?branch=master)
+[![Travis build
+status](https://travis-ci.com/niszet/stylex.svg?branch=master)](https://travis-ci.com/niszet/stylex)
 <!-- badges: end -->
 
 \*\* NOTE \*\* This package is under an experimental phase. It is still
