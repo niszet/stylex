@@ -24,5 +24,5 @@ new_style_from_styles(
 new style as a \code{xml_node} object.
 }
 \description{
-Create a new style to reference style based on existing style.
+Create a new style to reference style based on existing style
 }

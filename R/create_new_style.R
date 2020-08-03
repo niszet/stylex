@@ -131,8 +131,8 @@ get_styles <- function(xml){
 
 
 add_style_to_styles <- function(styles_xml, style_node){
-  stopifnot(class(styles_xml)=="xml_nodeset")
-  stopifnot(class(style_node)=="xml_node")
+  # stopifnot(class(styles_xml)=="xml_node")
+  # stopifnot(class(style_node)=="xml_node")
   xml2::xml_add_child(styles_xml, style_node)
 }
 
