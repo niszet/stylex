@@ -1,3 +1,13 @@
+
+set_node_x <- function(node, val, tag, attr){
+  if(is.na(attr)){
+    set_exist_tag(node, val, tag)
+  }else{
+    set_attr_val(node, val, tag, attr)
+  }
+}
+
+
 #' set existence to target tag
 #'
 #' @param node xml single style node
@@ -9,8 +19,6 @@
 #'
 set_exist_tag_pc <- function(node, val, ptag, ctag){
   sep <- "/"
-
-  # TODO: ext_parent_tag is here
 
   if(!is.na(xml2::xml_child(node, stringr::str_c(ptag, sep, ctag)))){
     if(is.na(val)){
@@ -74,7 +82,8 @@ set_exist_tag <- function(node, val, tag){
 #'
 set_attr_val <- function(node, val, tag, attr){
   # xml2 needs w: in xml_set_attr. but not need in xml_attr...
-  attr_wo_w <- stringr::str_replace(string = attr, pattern = "w:", replacement = "")
+  attr_wo_w <- stringr::str_replace(
+    string = attr, pattern = "w:", replacement = "")
 
   if(!ext_parent_tag(node, tag)){
     warning(tag, " : parent tag is missing")
@@ -104,8 +113,6 @@ set_attr_val <- function(node, val, tag, attr){
 #' @return
 #' TRUE : if parent tag exist or no parent tag.
 #' FALSE : if parent tag does not exist.
-
-
 ext_parent_tag <- function(node, tag){
   # TODO: pattern should be precise? (like \S+/\S+ ?)
   if(stringr::str_detect(string = tag, pattern = "/")){
@@ -124,14 +131,12 @@ set_based_on_val <- function(node, val){
 }
 
 set_next_val <- function(node, val){
-  # xml2::xml_set_attr(xml2::xml_child(node, "w:next"), "w:val", val)
   tag = "w:next"
   attr = "w:val"
   set_attr_val(node, val, tag, attr)
 }
 
 set_ui_priority_val <- function(node, val){
-  # xml2::xml_attr(xml2::xml_child(node, "w:uiPriority"), "w:val", val)
   tag = "w:uiPriority"
   attr = "w:val"
   set_attr_val(node, val, tag, attr)
@@ -139,27 +144,27 @@ set_ui_priority_val <- function(node, val){
 
 set_unhide_when_used <- function(node, val){
   tag = "w:unhideWhenUsed"
-  set_exist_tag_wo_ctag(node, val, tag)
+  set_exist_tag(node, val, tag)
 }
 
 set_q_format <- function(node, val){
   tag = "w:qFormat"
-  set_exist_tag_wo_ctag(node, val, tag)
+  set_exist_tag(node, val, tag)
 }
 
 # w:autoRedefine
 
 set_semi_hidden <- function(node, val){
   tag = "w:semiHidden"
-  set_exist_tag_wo_ctag(node, val, tag)
+  set_exist_tag(node, val, tag)
 }
 
 set_p_shd <- function(node, val){
-  # TBD
+  tag = "w:pPr/w:shd"
+  set_exist_tag(node, val, tag)
 }
 
-set_p_shd_val <- function(
-  node, val){
+set_p_shd_val <- function(node, val){
   tag = "w:pPr/w:shd"
   attr = "w:val"
   set_attr_val(node, val, tag, attr)
@@ -177,7 +182,7 @@ set_p_shd_theme_color <- function(node, val){
   set_attr_val(node, val, tag, attr)
 }
 
-set_p_shd_theme_tint <- function(node, val=c("33", "66", "99", NA)){
+set_p_shd_theme_tint <- function(node, val){
   tag = "w:pPr/w:shd"
   attr = "w:themeTint"
   set_attr_val(node, val, tag, attr)
@@ -199,7 +204,6 @@ set_p_shd_theme_fill_tint <- function(node, val){
 
   tag = "w:pPr/w:shd"
   attr = "w:themeFillTint"
-  warn_if_not_valid_val(val, node, attr)
   set_attr_val(node, val, tag, attr)
 }
 
@@ -211,8 +215,8 @@ set_p_shd_theme_fill_shade <- function(node, val){
 
 
 set_p_spacing <- function(node, val){
-  # TBD
-  # p_spacing = dplyr::if_else(!is.na(xml2::xml_child(style_all, "w:pPr/w:spacing")), T, NA),
+  tag = "w:pPr/w:spacing"
+  set_exist_tag(node, val, tag)
 }
 
 set_p_spacing_before_lines <- function(node, val){
@@ -253,8 +257,8 @@ set_p_spacing_line_rule <- function(node, val){
 
 
 set_p_ind <- function(node, val){
-  # TODO
-  # p_ind = dplyr::if_else(!is.na(xml2::xml_child(style_all, "w:pPr/w:ind")), T, NA),
+  tag = "w:pPr/w:ind"
+  set_exist_tag(node, val, tag)
 }
 
 set_p_ind_left <- function(node, val){
@@ -454,8 +458,8 @@ set_r_sz_cs_val <- function(node, val){
 }
 
 set_r_shd <- function(node, val){
-  # TBD
-  # r_shd = dplyr::if_else(!is.na(xml2::xml_child(style_all, "w:rPr/w:shd")), T, NA),
+  tag = "w:rPr/w:shd"
+  set_exist_tag(node, val, tag)
 }
 
 set_r_shd_val <- function(node, val){

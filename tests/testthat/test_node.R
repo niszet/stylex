@@ -112,3 +112,14 @@ test_that("docDefault", {
 
   testthat::expect_equal(is.data.frame(d), TRUE)
 })
+
+
+test_that("styles to style", {
+
+  docx_xml <- xml2::read_xml("test.xml")
+  styles <- get_styles(docx_xml)
+
+  x <- styles_to_styles(get_style_tags(styles))
+  # Dummy
+  testthat::expect_equal(x, docx_xml)
+})

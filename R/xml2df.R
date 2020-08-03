@@ -63,6 +63,191 @@ style2dddf <- function(style_xml){
 }
 
 
+function(){
+
+  discard_na <- function(x) x[!is.na(x)]
+  discard_na(c(1, NA))
+
+  vals <- c("w:pPr/w:pBdr/w:top", "val")
+  vals <- discard_na(stringr::str_replace_all(vals, "w:", ""))
+  janitor::make_clean_names(stringr::str_c(vals , collapse = "_"))
+
+  # janitor::make_clean_names(stringr::str_c(stringr::str_replace_na(c("w:pPr/w:pBdr/w:top", "val"), replacement = ""), collapse = "_"))
+
+  type = c("type", NA)
+  style_name_val = c("w:name", "val")
+  styleId = c("styleId", NA)
+  # custom_style = xml2::xml_attr(style_xml, "customStyle"),
+  # default_style = xml2::xml_attr(style_xml, "default"),
+  link_val = c("w:link", "val")
+  basedOn_val = c("w:basedOn", "val")
+  next_val = c("w:next", "val")
+  uiPriority_val = c("w:uiPriority", "val")
+  rsid_val = c("w:rsid", "val")
+  unhideWhenUsed = c("w:unhideWhenUsed", NA)
+  qFormat = c("w:qFormat",  NA)
+  autoRedefine = c("w:autoRedefine", NA)
+  semiHidden = c("w:semiHidden", NA)
+
+  pPr = c("w:pPr", NA)
+
+  pPr_pBdr = c("w:pPr/w:pBdr", NA)
+  pPr_pBdr_top =   c("w:pPr/w:pBdr/w:top", NA)
+  pPr_pBdr_top_val =   c("w:pPr/w:pBdr/w:top", "val")
+  pPr_pBdr_top_sz =  c("w:pPr/w:pBdr/w:top", "sz")
+  pPr_pBdr_top_space =   c("w:pPr/w:pBdr/w:top", "space")
+  pPr_pBdr_top_color =   c("w:pPr/w:pBdr/w:top", "color")
+  pPr_pBdr_top_themeColor =   c("w:pPr/w:pBdr/w:top", "themeColor")
+  pPr_pBdr_top_themeTint =   c("w:pPr/w:pBdr/w:top", "themeTint")
+  pPr_pBdr_top_themeShade =  c("w:pPr/w:pBdr/w:top", "themeShade")
+
+  pPr_pBdr_left = c("w:pPr/w:pBdr/w:left", NA)
+  pPr_pBdr_left_val =   c("w:pPr/w:pBdr/w:left", "val")
+  pPr_pBdr_left_sz =  c("w:pPr/w:pBdr/w:left", "sz")
+  pPr_pBdr_left_space =   c("w:pPr/w:pBdr/w:left", "space")
+  pPr_pBdr_left_color =   c("w:pPr/w:pBdr/w:left", "color")
+  pPr_pBdr_left_themeColor =   c("w:pPr/w:pBdr/w:left", "themeColor")
+  pPr_pBdr_left_themeTint =   c("w:pPr/w:pBdr/w:left", "themeTint")
+  pPr_pBdr_left_themeShade =   c("w:pPr/w:pBdr/w:left", "themeShade")
+
+  pPr_pBdr_right = c("w:pPr/w:pBdr/w:right", NA)
+  pPr_pBdr_right_val = c("w:pPr/w:pBdr/w:right", "val")
+  pPr_pBdr_right_sz = c("w:pPr/w:pBdr/w:right", "sz")
+  pPr_pBdr_right_space = c("w:pPr/w:pBdr/w:right", "space")
+  pPr_pBdr_right_color = c("w:pPr/w:pBdr/w:right", "color")
+  pPr_pBdr_right_themeColor = c("w:pPr/w:pBdr/w:right", "themeColor")
+  pPr_pBdr_right_themeTint = c("w:pPr/w:pBdr/w:right", "themeTint")
+  pPr_pBdr_right_themeShade = c("w:pPr/w:pBdr/w:right", "themeShade")
+
+  pPr_pBdr_bottom = c("w:pPr/w:pBdr/w:bottom", NA)
+  pPr_pBdr_bottom_val = c("w:pPr/w:pBdr/w:bottom", "val")
+  pPr_pBdr_bottom_sz = c("w:pPr/w:pBdr/w:bottom", "sz")
+  pPr_pBdr_bottom_space = c("w:pPr/w:pBdr/w:bottom", "space")
+  pPr_pBdr_bottom_color = c("w:pPr/w:pBdr/w:bottom", "color")
+  pPr_pBdr_bottom_themeColor = c("w:pPr/w:pBdr/w:bottom", "themeColor")
+  pPr_pBdr_bottom_themeTint = c("w:pPr/w:pBdr/w:bottom", "themeTint")
+  pPr_pBdr_bottom_themeShade = c("w:pPr/w:pBdr/w:bottom", "themeShade")
+
+
+  p_widowControl_val = c("w:pPr/w:widowControl", "val")
+  p_textboxTightWrap_val = c("w:pPr/w:textboxTightWrap", "val")
+  p_kinsoku_val = c("w:pPr/w:kinsoku", "val")
+  p_wordWrap_val = c("w:pPr/w:wordWrap", "val")
+  p_overflowPunct_val = c("w:pPr/w:overflowPunct", "val")
+  p_topLinePunct = c("w:pPr/w:topLinePunct", NA)
+  p_autoSpaceDE_val = c("w:pPr/w:autoSpaceDE", "val")
+  p_autoSpaceDN_val = c("w:pPr/w:autoSpaceDN", "val")
+  p_textAlignment_val = c("w:pPr/w:textAlignment", "val")
+
+  p_shd = c("w:pPr/w:shd", NA)
+  p_shd_val = c("w:pPr/w:shd", "val")
+  p_shd_color = c("w:pPr/w:shd", "color")
+  p_shd_themeColor = c("w:pPr/w:shd", "themeColor")
+  p_shd_themeTint = c("w:pPr/w:shd", "themeTint")
+  p_shd_fill = c("w:pPr/w:shd", "fill")
+  p_shd_themeFill = c("w:pPr/w:shd", "themeFill")
+  p_shd_themeFillTint = c("w:pPr/w:shd", "themeFillTint")
+  p_shd_themeFillShade = c("w:pPr/w:shd", "themeFillShade")
+
+  p_spacing = c("w:pPr/w:spacing", NA)
+  p_spacing_beforeLines = c("w:pPr/w:spacing", "beforeLines")
+  p_spacing_before = c("w:pPr/w:spacing", "before")
+  p_spacing_after = c("w:pPr/w:spacing", "after")
+  p_spacing_afterLines = c("w:pPr/w:spacing", "afterLines")
+  p_spacing_line = c("w:pPr/w:spacing", "line")
+  p_spacing_lineRule = c("w:pPr/w:spacing", "lineRule")
+
+  p_ind = c("w:pPr/w:ind", NA)
+  p_ind_left = c("w:pPr/w:ind", "left")
+  p_ind_leftChars = c("w:pPr/w:ind", "leftChars")
+  p_ind_right = c("w:pPr/w:ind", "right")
+  p_ind_rightChars = c("w:pPr/w:ind", "rightChars")
+  p_ind_firstLine = c("w:pPr/w:ind", "firstLine")
+  p_ind_firstLineChars = c("w:pPr/w:ind", "firstLineChars")
+
+  p_contextualSpacing = c("w:pPr/w:contextualSpacing", NA)
+
+  p_jc = c("w:pPr/w:jc", NA)
+  p_jc_val = c("w:pPr/w:jc", "val")
+
+  p_tabs = c("w:pPr/w:tabs", NA)
+  # TODO: cannot get all tab tags under the tabs tag.
+  # p_tabs_val_1 = "w:pPr/w:tabs")), , NA),
+  # p_tabs_val = "w:pPr/w:tabs"), "val"),
+  # p_ind_right = "w:pPr/w:tabs/w:tab"), "val"),
+  #   <w:tab w:val="center" w:pos="4252" />
+  #   <w:tab w:val="right" w:pos="8504" />
+  p_snapToGrid = c("w:pPr/w:snapToGrid", NA)
+
+  p_frame = c("w:pPr/w:framePr", NA)
+  p_frame_wrap = c("w:pPr/w:framePr", "wrap")
+  p_frame_vAnchor = c("w:pPr/w:framePr", "vAnchor")
+  p_frame_hAnchor = c("w:pPr/w:framePr", "hAnchor")
+  p_frame_y = c("w:pPr/w:framePr", "y")
+
+  p_outlineLvl = c("w:pPr/w:outlineLvl", NA)
+  p_outlineLvl_val = c("w:pPr/w:outlineLvl", "val")
+
+  p_keepNext = c("w:pPr/w:keepNext", NA)
+  p_keepLines = c("w:pPr/w:keepLines", NA)
+
+  p_wordWrap = c("w:pPr/w:wordWrap", NA)
+  p_wordWrap_val = c("w:pPr/w:wordWrap", "val")
+
+  # ----- rpr
+  rPr = c("w:rPr", NA)
+  r_sz_val = c("w:rPr/w:sz", "val")
+  r_szCs_val = c("w:rPr/w:szCs", "val")
+
+  r_shd = c("w:rPr/w:shd", NA)
+  r_shd_val = c("w:rPr/w:shd", "val")
+  r_shd_color = c("w:rPr/w:shd", "color")
+  r_shd_fill = c("w:rPr/w:shd", "fill")
+
+  r_vertAlign_val = c("w:rPr/w:vertAlign", "val")
+
+  r_color_val = c("w:rPr/w:color", "val")
+  r_color_themecolor = c("w:rPr/w:color", "themeColor")
+  r_color_themeTint = c("w:rPr/w:color", "themeTint")
+
+  r_bCs = c("w:rPr/w:bCs", NA)
+  r_i = c("w:rPr/w:i", NA)
+  r_iCs = c("w:rPr/w:iCs", NA)
+  r_b = c("w:rPr/w:b", NA)
+
+  r_caps = c("w:rPr/w:caps", NA)
+  r_strike = c("w:rPr/w:strike", NA)
+  r_emboss = c("w:rPr/w:emboss", NA)
+
+  r_smallCaps = c("w:rPr/w:smallCaps", NA)
+  r_dstrike = c("w:rPr/w:dstrike", NA)
+  r_imprint = c("w:rPr/w:imprint", NA)
+
+  r_outline = c("w:rPr/w:outline", NA)
+  r_shadow = c("w:rPr/w:shadow", NA)
+  r_vanish = c("w:rPr/w:vanish", NA)
+
+  r_u_val = c("w:rPr/w:u", "val")
+  r_u_color = c("w:rPr/w:u", "color")
+  r_u_themeColor = c("w:rPr/w:u", "themeColor")
+  r_u_themeTint = c("w:rPr/w:u", "themeTint")
+  r_em_val = c("w:rPr/w:em", "val")
+
+  r_rFonts = c("w:rPr/w:rFonts", NA)
+  r_rFonts_ascii = c("w:rPr/w:rFonts", "ascii")
+  r_rFonts_hAnsi = c("w:rPr/w:rFonts", "hAnsi")
+  r_rFonts_eastAsia = c("w:rPr/w:rFonts", "eastAsia")
+  r_rFonts_cs = c("w:rPr/w:rFonts", "cs")
+
+  r_rFonts_asciiTheme = c("w:rPr/w:rFonts", "asciiTheme")
+  r_rFonts_eastAsiaTheme = c("w:rPr/w:rFonts", "eastAsiaTheme")
+  r_rFonts_hAnsiTheme = c("w:rPr/w:rFonts", "hAnsiTheme")
+  r_rFonts_cstheme = c("w:rPr/w:rFonts", "cstheme")
+
+
+
+}
+
 #' Convert xml object to data.frame
 #'
 #' Convertion from xml to data.frame for modification usability.
@@ -261,6 +446,7 @@ style2df <- function(style_xml){
   )
 
   d <- janitor::clean_names(d)
-
+  d <- purrr::map_df(d, as.character)
+  # all columns are character.
   d
 }

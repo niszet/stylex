@@ -143,37 +143,34 @@ h[["r_em_val"]] <- set_r_em_val
 #h[["r_r_fonts_cstheme"]] <- set_r_r_fonts_cstheme
 
 
-#' Update xml file based on reference.docx and data.frame.
-#'
-#' @param docx_file reference.docx file which has original styles.
-#' @param df data.frame which contains updated value. Note that all updated values are updated.
-#'
-#' @return Updated style xml node object.
-#' @export
-#'
-#' @examples
-#' \dontrun{
-#' update_xml("reference.docx", df)
-#' }
-#'
-update_xml <- function(docx_file, df){
-  # TODO: use xml. not docx file.
 
-  xml <- read_docx(docx_file)
-  style_xml <- get_styles(xml)
-  org_df <- purrr::map_df(style2df(style_xml), as.character)
-  df <- purrr::map_df(df, as.character)
-  d_df <- dplyr::setdiff(df, org_df)
 
-  for (x in d_df[["style_id"]]) {
-    node <- get_node_by_id(style_xml, x)
-    for(col in colnames(d_df)){
-      val <- d_df[d_df["style_id"]==x, col]
-      # print(col)
-      if(!is.null(h[[col]])){
-        h[[col]](node, val)
+
+update_xml <- function(style_tags, d_df, flags = c("update", "delete", "create")){
+
+  # get ids to specify each row.
+  for (row_name in d_df[["style_id"]]) {
+    node <- get_node_by_id(style_tags, row_name)
+
+    for(col_name in colnames(d_df)){
+
+      # get value
+      val <- d_df[d_df["style_id"]==row_name, col_name]
+      if(!is.na(as.logical(val))){
+        val <- as.logical(val)
+      }
+
+      if(!is.null(h[[col_name]])){
+        h[[col_name]](node, val)
       }
     }
+
   }
-  xml
+  style_tags
+}
+
+
+diff_of_dfs <- function(ref_df, new_df){
+  d_df <- dplyr::setdiff(new_df, ref_df)
+  d_df
 }

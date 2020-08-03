@@ -115,6 +115,8 @@ styles_to_styles <- function(style_nodes){
   for(style in style_nodes){
     xml2::xml_add_child(x, style)
   }
+
+  x
 }
 
 
