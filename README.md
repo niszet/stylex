@@ -5,6 +5,9 @@ stylex
 ======
 
 <!-- badges: start -->
+
+[![Codecov test
+coverage](https://codecov.io/gh/niszet/stylex/branch/master/graph/badge.svg)](https://codecov.io/gh/niszet/stylex?branch=master)
 <!-- badges: end -->
 
 \*\* NOTE \*\* This package is under an experimental phase. It is still
