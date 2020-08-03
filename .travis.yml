@@ -10,13 +10,9 @@ fortran: false
 
 r_binary_packages:
   - covr
-  - dplyr
   - fs
-  - janitor
   - officer
-  - stringr
   - xml2
-  - readr
   - testthat
 
 warnings_are_errors: false
