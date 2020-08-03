@@ -2,20 +2,20 @@
 #'
 #' Create a new style to reference style based on existing style.
 #'
-#' @param xml styles xml_node object
-#' @param style_name new style name.
-#' @param ref_style_name reference style's name. Default is NULL.
+#' @param styles_xml `xml_node` object with `styles` at the root.
+#' @param style_name new style name as a `character` vector.
+#' @param ref_name referenced style name in the `xml` as a `character` vector. Default is `NULL`. It means `"Normal"` style.
 #' @param style_id new style id. Unique id in docx is required. By default, it has unique id.
 #'
-#' @return xml_node object of new style
+#' @return new style as a `xml_node` object.
 #'
-create_new_style <- function(xml, style_name, ref_style_name = NULL, style_id = "auto"){
+create_new_style <- function(styles_xml, style_name, ref_name = NULL, style_id = "auto"){
 
-  style_xml <- get_style_tags(xml)
+  style_xml <- get_style_tags(styles_xml)
   df <- style2df(style_xml)
 
-  if(is.null(ref_style_name)){
-    ref_style_name = "Normal"
+  if(is.null(ref_name)){
+    ref_name = "Normal"
   }
 
   # TODO: auto only?
@@ -41,7 +41,7 @@ create_new_style <- function(xml, style_name, ref_style_name = NULL, style_id = 
     "xmlns:w16se"="http://schemas.microsoft.com/office/word/2015/wordml/symex"
   )
 
-  node <- get_node_by_name(style_xml, ref_style_name)[[1]]
+  node <- get_node_by_name(style_xml, ref_name)[[1]]
 
   xml2::xml_add_child(x, node)
 

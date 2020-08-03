@@ -2,7 +2,7 @@
 #'
 #' @param file Input file path of reference document file (docx).
 #'
-#' @return node object of xml2 which contains all tags in styles.xml file.
+#' @return `node_document` object which contains all tags in styles.xml file.
 #' @export
 #'
 #' @examples
@@ -19,9 +19,11 @@ read_docx <- function(file){
 
 #' Extract only style tags and its children
 #'
-#' @param xml expects xml2 node object which contains tags from styles.xml such as output of `read_style_xml`.
+#' Peel off the `styles` tag from input `xml_node` object. `style` tags are contained under the `styles` tag.
 #'
-#' @return xml2 node object which contains style tags.
+#' @param xml `xml_node` object with `styles` tag as a root. See `read_docx`.
+#'
+#' @return `xml_nodeset` object which contains style tags.
 #' @export
 #'
 #' @examples
