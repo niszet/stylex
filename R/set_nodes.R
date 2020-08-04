@@ -76,7 +76,7 @@ set_exist_tag <- function(node, val, tag){
 
   # TODO actually needed??
   if(!ext_parent_tag(node, tag)){
-    warning(tag, " : parent tag is missing")
+    ## warning(tag, " : parent tag is missing")
     return(NULL) # NULL is OK?
   }
 
@@ -110,14 +110,14 @@ set_attr_val <- function(node, val, tag, attr){
     string = attr, pattern = "w:", replacement = "")
 
   if(!ext_parent_tag(node, tag)){
-    warning(tag, " : parent tag is missing")
+    ## warning(tag, " : parent tag is missing")
     return(NULL) # TODO: NULL is OK?
   }
 
   warn_if_not_valid_val(val, tag, attr)
 
   if(is.na(xml2::xml_child(node, tag))){
-    warning(stringr::str_c(tag, " is missing. ", val, "is not set to ", attr))
+    ## warning(stringr::str_c(tag, " is missing. ", val, "is not set to ", attr))
   }else{
     if(!is.na(xml2::xml_attr(xml2::xml_child(node, tag), attr_wo_w))){
       message(stringr::str_c(

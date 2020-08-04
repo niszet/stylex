@@ -129,3 +129,15 @@ test_that("styles to style", {
   # Dummy
   testthat::expect_equal(x, docx_xml)
 })
+
+
+test_that("diff of df", {
+
+  docx_xml <- xml2::read_xml("test.xml")
+  styles <- get_styles(docx_xml)
+  d <- style2df(styles)
+  d_df <- diff_of_dfs(d, d)
+
+  testthat::expect_equal(sum(dim(d_df)==c(0,133)), 2)
+})
+

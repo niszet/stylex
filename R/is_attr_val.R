@@ -71,7 +71,8 @@ pt_to_fontsize <- function(pt){
 
 warn_if_not_valid_val <- function(val, node, attr){
 
-  if(is.null(is[[node]])){
+  # print(stringr::str_c(node, "/", attr))
+  if(is.null(is[[stringr::str_c(node, "/", attr)]])){
     return(NULL)
   }
 
@@ -85,17 +86,17 @@ warn_if_not_valid_val <- function(val, node, attr){
 
 is <- new.env()
 #is[["w:rPr/w:color"]] <- is_theme_color
-is[["w:rPr/w:shd/w:val"]] <- is_rpr_shd_val
+is[["w:rPr/w:shd/val"]] <- is_rpr_shd_val
 # is[["w:pPr/w:"]] <- is_theme_tint
 # is[["w:pPr/w:"]] <- is_theme_shade
-is[["w:pPr/w:textboxTightWrap/w:val"]] <- is_textbox_tightWrap
-is[["w:pPr/w:widowControl/w:val"]] <- is_widow_control
-is[["w:pPr/w:textAlignment/w:val"]] <- is_text_alignment
+is[["w:pPr/w:textboxTightWrap/val"]] <- is_textbox_tightWrap
+is[["w:pPr/w:widowControl/val"]] <- is_widow_control
+is[["w:pPr/w:textAlignment/val"]] <- is_text_alignment
 # is[["w:pPr/w:"]] <- is_hex
-is[["w:rPr/w:em/w:val"]] <- is_em_val
-is[["w:rPr/w:u/w:val"]] <- is_u_val
-is[["w:rPr/w:vertAlign/w:val"]] <- is_vert_align_val
-is[["w:pPr/w:spacing/w:lineRule"]] <- is_spacing_linerule
+is[["w:rPr/w:em/val"]] <- is_em_val
+is[["w:rPr/w:u/val"]] <- is_u_val
+is[["w:rPr/w:vertAlign/val"]] <- is_vert_align_val
+is[["w:pPr/w:spacing/lineRule"]] <- is_spacing_linerule
 
 
 
