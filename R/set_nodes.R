@@ -7,7 +7,6 @@ set_node_x <- function(node, val, tag, attr){
   }
 }
 
-# TODO check correct???
 get_node_x <- function(style_xml, tag_attr){
   tag <- tag_attr[1]
   attr <- tag_attr[2]
