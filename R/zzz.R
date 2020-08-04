@@ -1,6 +1,6 @@
 .onLoad <- function(libname, pkgname) {
 
-  stylex:::init()
+  # init()
 
   invisible()
 }

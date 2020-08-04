@@ -247,7 +247,7 @@ dd <- list(
 
 init <- function(){
 
-  x <- stylex:::dd
+  x <- dd
 
   # make a colname by the list.
   cn <- unlist(purrr::map(x, make_df_colname))
@@ -259,6 +259,7 @@ init <- function(){
   d
 }
 
+ddd <- init()
 
 #' Convert xml object to data.frame
 #'
@@ -280,7 +281,7 @@ style2df <- function(style_xml){
 
   style_xml <- xml2::xml_find_all(style_xml, "w:style")
 
-  x <- stylex:::dd
+  x <- dd
 
   cn <- init()[[1]]
 
