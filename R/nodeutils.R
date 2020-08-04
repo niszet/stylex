@@ -125,8 +125,8 @@ get_attr_from_node <- function(node, attr, ctag = NULL){
 #' @export
 is_same_nodes <- function(node1, node2){
 
-  x <- dplyr::select(style2df(node1), -c("style_id", "style_name_val"))
-  y <- dplyr::select(style2df(node2), -c("style_id", "style_name_val"))
+  x <- dplyr::select(style2df(node1), -c("style_id", "name_val"))
+  y <- dplyr::select(style2df(node2), -c("style_id", "name_val"))
 
   all.equal(y, y)
 

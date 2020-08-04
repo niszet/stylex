@@ -170,7 +170,7 @@ create_styles_root <- function(){
 
 
 get_style_names <- function(df){
-  df[["style_name_val"]]
+  df[["name_val"]]
 }
 
 #' style id vector

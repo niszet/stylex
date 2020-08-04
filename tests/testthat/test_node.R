@@ -31,7 +31,8 @@ test_that("dim of style_df", {
   test_df <- style2df(test_styles)
 
   # both of dim are same as expected.
-  expect_equal(sum(dim(test_df) == c(74, 132)), 2)
+  # 2 items are added -1
+  expect_equal(sum(dim(test_df) == c(74, 133)), 2)
 })
 
 

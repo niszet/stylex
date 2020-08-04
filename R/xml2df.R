@@ -63,31 +63,18 @@ style2dddf <- function(style_xml){
 }
 
 
+make_df_colname <- function(vals){
+  # janitor::make_clean_names(
+  # stringr::str_c(stringr::str_replace_na(c("w:pPr/w:pBdr/w:top", "val"), replacement = ""), collapse = "_"))
+  discard_na <- function(x) x[!is.na(x)]
+  discard_na(c(1, NA))
 
+  # vals <- c("w:pPr/w:pBdr/w:top", "val")
+  vals <- discard_na(stringr::str_replace_all(vals, "w:", ""))
+  janitor::make_clean_names(stringr::str_c(vals , collapse = "_"))
+}
 
-function(){
-
-  make_df_colname <- function(vals){
-    # janitor::make_clean_names(
-    # stringr::str_c(stringr::str_replace_na(c("w:pPr/w:pBdr/w:top", "val"), replacement = ""), collapse = "_"))
-    discard_na <- function(x) x[!is.na(x)]
-    discard_na(c(1, NA))
-
-    # vals <- c("w:pPr/w:pBdr/w:top", "val")
-    vals <- discard_na(stringr::str_replace_all(vals, "w:", ""))
-    janitor::make_clean_names(stringr::str_c(vals , collapse = "_"))
-  }
-
-  # make a colname by the list.
-  # x %>% map(make_df_colname) %>% unlist
-
-  # t(data.frame(x))
-  # rownames <- NULL
-  #
-  # get_node_x for styles and x
-  # for(i in x) get_node_x(styles, i)
-
-  x <- list(
+dd <- list(
   c(NA, "type"),
   c("w:name", "val"),
   c(NA, "styleId"),
@@ -146,7 +133,7 @@ function(){
   c("w:pPr/w:widowControl", "val"),
   c("w:pPr/w:textboxTightWrap", "val"),
   c("w:pPr/w:kinsoku", "val"),
-  c("w:pPr/w:wordWrap", "val"),
+#  c("w:pPr/w:wordWrap", "val"), # duplicated...
   c("w:pPr/w:overflowPunct", "val"),
   c("w:pPr/w:topLinePunct", NA),
   c("w:pPr/w:autoSpaceDE", "val"),
@@ -259,7 +246,35 @@ function(){
   c("w:rPr/w:rFonts", "cstheme")
 )
 
+init <- function(){
 
+  x <- stylex:::dd
+
+  # make a colname by the list.
+  cn <- unlist(purrr::map(x, make_df_colname))
+
+  d <- data.frame(cn, t(data.frame(x)))
+  rownames(d) <- NULL
+  colnames(d) <- c("name","tag","attr")
+  #
+  # get_node_x for styles and x
+  # for(i in x) get_node_x(styles_xml, i)
+  # purrr::map(x, get_node_x(styles_xml, .))
+  d
+}
+
+init2 <- function(styles_xml){
+
+  x <- stylex:::dd
+
+  cn <- init()[[1]]
+
+  f <- function(x) get_node_x(style_xml = styles_xml, x)
+
+  d <- as.data.frame(purrr::map(x, f))
+  colnames(d) <- cn
+
+  d
 }
 
 #' Convert xml object to data.frame
@@ -281,6 +296,8 @@ function(){
 style2df <- function(style_xml){
 
   style_xml <- xml2::xml_find_all(style_xml, "w:style")
+
+  return(init2(style_xml))
 
   d = data.frame(
     stringsAsFactors = FALSE,
