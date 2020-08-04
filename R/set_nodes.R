@@ -1,4 +1,6 @@
 
+# TODO: add flags of create/delete/update
+# good word for attr/val...?
 set_node_x <- function(node, val, tag, attr){
 
   if(is.na(attr)){
@@ -8,6 +10,8 @@ set_node_x <- function(node, val, tag, attr){
   }
 }
 
+# TODO: rename to get_node. add document and export.
+# this is NOT return a node. value of T/F or attribute.
 get_node_x <- function(style_xml, tag_attr){
   tag <- tag_attr[1]
   attr <- tag_attr[2]

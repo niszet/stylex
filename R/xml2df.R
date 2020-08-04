@@ -63,16 +63,19 @@ style2dddf <- function(style_xml){
 }
 
 
+# TODO: rename... colname_from_tag
+# vals is c(tag, attr). This should be cared...
 make_df_colname <- function(vals){
 
   discard_na <- function(x) x[!is.na(x)]
-  discard_na(c(1, NA))
 
   # vals <- c("w:pPr/w:pBdr/w:top", "val")
   vals <- discard_na(stringr::str_replace_all(vals, "w:", ""))
   janitor::make_clean_names(stringr::str_c(vals , collapse = "_"))
 }
 
+# TODO: should rename...
+# all OOMOJI
 dd <- list(
   c(NA, "type"),
   c("w:name", "val"),
@@ -247,18 +250,17 @@ dd <- list(
 
 init <- function(){
 
-  x <- dd
-
   # make a colname by the list.
-  cn <- unlist(purrr::map(x, make_df_colname))
+  cn <- unlist(purrr::map(dd, make_df_colname))
 
-  d <- data.frame(cn, t(data.frame(x)))
+  d <- data.frame(cn, t(data.frame(dd)))
   rownames(d) <- NULL
   colnames(d) <- c("name","tag","attr")
 
   d
 }
 
+# TODO: this should be moved?
 ddd <- init()
 
 #' Convert xml object to data.frame
@@ -279,15 +281,16 @@ ddd <- init()
 #'
 style2df <- function(style_xml){
 
-  style_xml <- xml2::xml_find_all(style_xml, "w:style")
+  style_xml <- get_style_tags(style_xml)
+  # style_xml <- xml2::xml_find_all(style_xml, "w:style")
 
-  x <- dd
+  cn <- ddd[[1]]
+  # cn <- init()[[1]]
 
-  cn <- init()[[1]]
-
+  # support partial function
   f <- function(x) get_node_x(style_xml = style_xml, x)
 
-  d <- as.data.frame(purrr::map(x, f))
+  d <- as.data.frame(purrr::map(dd, f))
   colnames(d) <- cn
 
   d <- purrr::map_df(d, as.character)

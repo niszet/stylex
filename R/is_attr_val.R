@@ -59,16 +59,6 @@ is_spacing_linerule <- function(val){
   val %in% ll
 }
 
-
-fontsize_to_pt <- function(sz){
-  as.character(as.numeric(sz) / 2)
-}
-
-pt_to_fontsize <- function(pt){
-  as.character(as.numeric(pt) * 2)
-}
-
-
 warn_if_not_valid_val <- function(val, node, attr){
 
   # print(stringr::str_c(node, "/", attr))

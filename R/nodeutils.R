@@ -22,6 +22,8 @@ get_style_tags <- function(styles){
 #'
 get_node_by_id <- function(style_xml, node_id){
 
+  # TODO: this function should be a wrapper of get_node_x.
+  # get_node_x(style_xml, c(NA, "styleId"))
   if(class(style_xml)=="xml_node"){
     style_xml <- get_style_tags(style_xml)
   }
