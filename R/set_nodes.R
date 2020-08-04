@@ -1,5 +1,6 @@
 
 set_node_x <- function(node, val, tag, attr){
+
   if(is.na(attr)){
     set_exist_tag(node, val, tag)
   }else{
@@ -100,6 +101,11 @@ set_exist_tag <- function(node, val, tag){
 #'
 set_attr_val <- function(node, val, tag, attr){
   # xml2 needs w: in xml_set_attr. but not need in xml_attr...
+
+  if(is.na(tag)){
+    return(xml2::xml_set_attr(node, attr, val))
+  }
+
   attr_wo_w <- stringr::str_replace(
     string = attr, pattern = "w:", replacement = "")
 
