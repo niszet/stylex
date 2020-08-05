@@ -141,3 +141,17 @@ test_that("diff of df", {
   testthat::expect_equal(sum(dim(d_df)==c(0,133)), 2)
 })
 
+
+test_that("init data", {
+  testthat::expect_equal(init(), TAGATTRDF)
+})
+
+test_that("font 1", {
+  testthat::expect_equal("6", fontsize_to_pt(12))
+})
+
+test_that("font 2", {
+  testthat::expect_equal("12", pt_to_fontsize(6))
+})
+
+
