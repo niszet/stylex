@@ -33,6 +33,30 @@ get_style_tags_from_styles <- function(styles_xml){
 
 }
 
+
+#' Extract only style tags and its children
+#'
+#' Peel off the `styles` tag from input `xml_node` object. `style` tags are contained under the `styles` tag.
+#'
+#' @param xml `xml_node` object with `styles` tag as a root. See `read_docx`.
+#'
+#' @return `xml_nodeset` object which contains style tags.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' get_styles(xml)
+#' }
+get_styles <- function(xml){
+  xml2::xml_find_first(xml, "/w:styles")
+}
+
+
+
+
+
+
+
 #' To get specific node by style_id
 #'
 #' @param styles_xml xml2 node object of styles.

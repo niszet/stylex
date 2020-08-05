@@ -1,6 +1,16 @@
-# TODO: add flags of create/delete/update
-# good word for attr/val...?
-set_node_x <- function(node, val, tag, attr){
+#' Set value to tag/attr of givnen node
+#'
+#' @param node `xml_node` or `xml_nodeset`
+#' @param val value to set to the node
+#' @param tag tag name as a character
+#' @param attr attribute name as a character
+#' @param flag TBD.
+#'
+#' @return updated node (node in arguments is automatically updated)
+#' @export
+#'
+set_node_tagattr <- function(node, val, tag, attr, flag=NULL){
+  # TODO: add flags of create/delete/update
 
   if(is.na(attr)){
     set_exist_tag(node, val, tag)
