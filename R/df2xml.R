@@ -27,8 +27,8 @@ update_xml <- function(style_tags, d_df, flags = c("update", "delete", "create")
       }
 
       # colname to tag name
-      tag <- ddd[ddd["name"]==col_name, "tag"]
-      attr <- ddd[ddd["name"]==col_name, "attr"]
+      tag <- TAGATTRDF[TAGATTRDF["name"]==col_name, "tag"]
+      attr <- TAGATTRDF[TAGATTRDF["name"]==col_name, "attr"]
 
       set_node_x(node=node, val=val, tag=tag, attr=attr)
 

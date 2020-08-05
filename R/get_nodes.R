@@ -18,21 +18,19 @@ get_node_x <- function(style_xml, tag_attr){
 }
 
 
-
 #' Get style tags of xml_nodeset under style tag of xml_node object
 #'
 #' @param styles_xml xml_node object
 #'
 #' @return xml_nodeset object which contains style tags
 get_style_tags_from_styles <- function(styles_xml){
-  # get_style_tags_from_styles
-  # TODO xml_document is needed?
-  x <- styles_xml
+
   if(class(styles_xml) %in% c("xml_node", "xml_document")){
-    x <- xml2::xml_find_all(styles_xml, "w:style")
+    xml2::xml_find_all(styles_xml, "w:style")
+  }else{
+    styles_xml
   }
 
-  x
 }
 
 #' To get specific node by style_id
@@ -54,7 +52,7 @@ get_node_by_id <- function(styles_xml, node_id){
   #
   styles_xml <- get_style_tags_from_styles(styles_xml)
 
-  get_node_x(styles_xml, c(NA, "styleId"))
+  styles_xml[get_node_x(styles_xml, c(NA, "styleId"))==node_id]
   # styles_xml[xml2::xml_attr(styles_xml, "styleId")==node_id]
 }
 
@@ -77,7 +75,8 @@ get_node_by_name <- function(styles_xml, name){
 
   styles_xml <- get_style_tags_from_styles(styles_xml)
 
-  styles_xml[xml2::xml_attr(xml2::xml_child(styles_xml, "w:name"), "val")==name]
+  styles_xml[get_node_x(styles_xml, c("w:name", "val"))==name]
+  # styles_xml[xml2::xml_attr(xml2::xml_child(styles_xml, "w:name"), "val")==name]
 }
 
 #' Get style name from style id
@@ -97,7 +96,9 @@ get_name_by_id <- function(styles_xml, style_id){
   styles_xml <- get_style_tags_from_styles(styles_xml)
 
   target_node <- get_node_by_id(styles_xml, style_id)
-  xml2::xml_attr(xml2::xml_child(target_node, "w:name"), "val")
+
+  get_node_x(target_node, c("w:name", "val"))
+  # xml2::xml_attr(xml2::xml_child(target_node, "w:name"), "val")
 }
 
 #' Get style id from style name
