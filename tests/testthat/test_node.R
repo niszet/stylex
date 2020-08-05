@@ -53,7 +53,7 @@ test_that("create new style", {
 
   docx_xml <- xml2::read_xml("test.xml")
   styles <- get_styles(docx_xml)
-  y <- new_style_from_styles(styles, "Hoge")
+  y <- create_style_from_styles(styles, "Hoge")
   x <- stylex::get_node_by_name(styles, "Normal")
 
   testthat::expect_equal(is_same_nodes(x, y), TRUE)
@@ -102,7 +102,7 @@ test_that("copy node", {
   styles <- get_styles(docx_xml)
 
   x <- stylex::get_node_by_name(styles, "Normal")
-  y <- copy_style_node(x, "Hoge")
+  y <- copy_style_from_node(x, "Hoge")
 
   testthat::expect_equal(is_same_nodes(x, y), TRUE)
 
@@ -125,7 +125,7 @@ test_that("styles to style", {
   docx_xml <- xml2::read_xml("test.xml")
   styles <- get_styles(docx_xml)
 
-  x <- styles_to_styles(get_style_tags_from_styles(styles))
+  x <- convert_style_tags_to_styles(get_style_tags_from_styles(styles))
   # Dummy
   testthat::expect_equal(x, docx_xml)
 })

@@ -9,9 +9,7 @@
 #'
 #' @return new style as a `xml_node` object.
 #'
-new_style_from_styles <- function(styles_xml, style_name, ref_name = NULL, style_id = "auto"){
-
-  # create_new_style_from_styles
+create_style_from_styles <- function(styles_xml, style_name, ref_name = NULL, style_id = "auto"){
 
   style_xml <- get_style_tags_from_styles(styles_xml)
   df <- style2df(style_xml)
@@ -22,7 +20,7 @@ new_style_from_styles <- function(styles_xml, style_name, ref_name = NULL, style
 
   # TODO: auto only?
   if(style_id == "auto"){
-    style_id = gen_unique_id(get_style_ids(df))
+    style_id = create_unique_id(get_style_ids(df))
   }
 
   stopifnot(is_unique_style_id(df, style_id))
@@ -61,7 +59,7 @@ new_style_from_styles <- function(styles_xml, style_name, ref_name = NULL, style
 #' @return new style node of `xml_node`
 #' @export
 #'
-copy_style_node <- function(style_node, style_name){
+copy_style_from_node <- function(style_node, style_name){
 
   df <- style2df(style_node)
 
@@ -69,7 +67,7 @@ copy_style_node <- function(style_node, style_name){
     style_node <- style_node[[1]]
   }
 
-  style_id = gen_unique_id(get_style_ids(df))
+  style_id = create_unique_id(get_style_ids(df))
 
   stopifnot(is_unique_style_id(df, style_id))
   stopifnot(is_unique_style_name(df, style_name))
@@ -99,7 +97,7 @@ delete_style_from_styles <- function(styles_xml, style_name){
 }
 
 # convert_style_tags_to_styles_tag
-styles_to_styles <- function(style_nodes){
+convert_style_tags_to_styles <- function(style_nodes){
   # must be tested
   x <- create_styles_root()
   for(style in style_nodes){
@@ -145,7 +143,7 @@ create_styles_root <- function(){
 #'
 #' @return character of style id
 #'
-gen_unique_id <- function(ids){
+create_unique_id <- function(ids){
   # z\d+ is a naming rule
   x <- readr::parse_number(
     utils::tail(
