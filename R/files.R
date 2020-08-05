@@ -15,6 +15,8 @@ read_docx <- function(file){
   tmpdir = fs::file_temp()
   officer::unpack_folder(file = file, folder = tmpdir)
   xml2::read_xml(fs::path_abs(fs::path(tmpdir, "word/styles.xml")))
+
+  fs::dir_delete(tmpdir)
 }
 
 #' Write docx file with original reference.docx and updated style xml
