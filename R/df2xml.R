@@ -1,5 +1,6 @@
 
 # TODO: solve warning...
+# update_styles_from_df
 update_xml <- function(style_tags, d_df, flags = c("update", "delete", "create")){
 
   # get ids to specify each row.
