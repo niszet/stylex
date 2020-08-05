@@ -86,7 +86,7 @@ test_that("update xml", {
   d <- style2df(styles)
   # d_df <- diff_of_dfs(d, d)
 
-  xml <- update_xml(get_style_tags(styles), d[1,])
+  xml <- update_xml(get_style_tags_from_styles(styles), d[1,])
 
   # styles_to_styles
   # styles_to_docx_xml
@@ -125,7 +125,7 @@ test_that("styles to style", {
   docx_xml <- xml2::read_xml("test.xml")
   styles <- get_styles(docx_xml)
 
-  x <- styles_to_styles(get_style_tags(styles))
+  x <- styles_to_styles(get_style_tags_from_styles(styles))
   # Dummy
   testthat::expect_equal(x, docx_xml)
 })

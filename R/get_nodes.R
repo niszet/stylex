@@ -1,9 +1,30 @@
+# TODO: rename to get_node. add document and export.
+# this is NOT return a node. value of T/F or attribute.
+get_node_x <- function(style_xml, tag_attr){
+  tag <- tag_attr[1]
+  attr <- tag_attr[2]
+
+  if(is.na(attr)){
+    # if(stringr::str_detect(tag, "/")) might not need.
+    dplyr::if_else(!is.na(xml2::xml_child(style_xml, tag)), T, NA)
+  }else{
+    if(is.na(tag)){
+      # style tag attr. type and so on
+      xml2::xml_attr(style_xml, attr)
+    }else{
+      xml2::xml_attr(xml2::xml_child(style_xml, tag), attr)
+    }
+  }
+}
+
+
+
 #' Get style tags of xml_nodeset under style tag of xml_node object
 #'
-#' @param styles xml_node object
+#' @param styles_xml xml_node object
 #'
 #' @return xml_nodeset object which contains style tags
-get_style_tags <- function(styles_xml){
+get_style_tags_from_styles <- function(styles_xml){
   # get_style_tags_from_styles
   # TODO xml_document is needed?
   x <- styles_xml
@@ -30,10 +51,11 @@ get_style_tags <- function(styles_xml){
 get_node_by_id <- function(styles_xml, node_id){
 
   # TODO: this function should be a wrapper of get_node_x.
-  # get_node_x(style_xml, c(NA, "styleId"))
-  styles_xml <- get_style_tags(styles_xml)
+  #
+  styles_xml <- get_style_tags_from_styles(styles_xml)
 
-  styles_xml[xml2::xml_attr(styles_xml, "styleId")==node_id]
+  get_node_x(styles_xml, c(NA, "styleId"))
+  # styles_xml[xml2::xml_attr(styles_xml, "styleId")==node_id]
 }
 
 
@@ -53,14 +75,14 @@ get_node_by_id <- function(styles_xml, node_id){
 
 get_node_by_name <- function(styles_xml, name){
 
-  styles_xml <- get_style_tags(styles_xml)
+  styles_xml <- get_style_tags_from_styles(styles_xml)
 
   styles_xml[xml2::xml_attr(xml2::xml_child(styles_xml, "w:name"), "val")==name]
 }
 
 #' Get style name from style id
 #'
-#' @param style_xml xml2 node object of styles.
+#' @param styles_xml xml2 node object of styles.
 #' @param style_id style_id to get style name.
 #'
 #' @return style name
@@ -70,18 +92,17 @@ get_node_by_name <- function(styles_xml, name){
 #' \dontrun{
 #'  get_name_by_id(xml, "Author")
 #' }
-get_name_by_id <- function(style_xml, style_id){
+get_name_by_id <- function(styles_xml, style_id){
 
-  style_xml <- get_style_tags(style_xml)
+  styles_xml <- get_style_tags_from_styles(styles_xml)
 
-  target_node <- get_node_by_id(style_xml, style_id)
-  # target_node <- style_xml[xml2::xml_attr(style_xml, "styleId")==style_id]
+  target_node <- get_node_by_id(styles_xml, style_id)
   xml2::xml_attr(xml2::xml_child(target_node, "w:name"), "val")
 }
 
 #' Get style id from style name
 #'
-#' @param style_xml xml2 node object of styles.
+#' @param styles_xml xml2 node object of styles.
 #' @param name style name to get style_id.
 #'
 #' @return style_id
@@ -93,12 +114,11 @@ get_name_by_id <- function(style_xml, style_id){
 #' }
 get_id_by_name <- function(styles_xml, name){
 
-  styles_xml <- get_style_tags(styles_xml)
+  styles_xml <- get_style_tags_from_styles(styles_xml)
 
   target_node <- get_node_by_name(styles_xml, name)
   xml2::xml_attr(target_node, "styleId")
 
-  # xml2::xml_attr(style_xml[xml2::xml_attr(xml2::xml_child(style_xml, "w:name"), "val")==name], "styleId")
 }
 
 
@@ -139,12 +159,15 @@ is_same_nodes <- function(node1, node2){
 
 
 is_exact_same_node <- function(node1, node2){
-  if(class(node1)!=class(node2)){
-    return(F)
-  }
 
+  # same class
+  #if(class(node1)!=class(node2)){
+  #  return(F)
+  #}
 
+  # same attr
 
+  # same children
 
 
 }

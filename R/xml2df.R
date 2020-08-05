@@ -281,7 +281,7 @@ ddd <- init()
 #'
 style2df <- function(style_xml){
 
-  style_xml <- get_style_tags(style_xml)
+  style_xml <- get_style_tags_from_styles(style_xml)
   # style_xml <- xml2::xml_find_all(style_xml, "w:style")
 
   cn <- ddd[[1]]

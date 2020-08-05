@@ -4,10 +4,10 @@
 \alias{get_node_by_name}
 \title{To get specific node by style name}
 \usage{
-get_node_by_name(style_xml, name)
+get_node_by_name(styles_xml, name)
 }
 \arguments{
-\item{style_xml}{xml2 node object of styles.}
+\item{styles_xml}{xml2 node object of styles.}
 
 \item{name}{style name to get specific node.}
 }

@@ -4,10 +4,10 @@
 \alias{get_name_by_id}
 \title{Get style name from style id}
 \usage{
-get_name_by_id(style_xml, style_id)
+get_name_by_id(styles_xml, style_id)
 }
 \arguments{
-\item{style_xml}{xml2 node object of styles.}
+\item{styles_xml}{xml2 node object of styles.}
 
 \item{style_id}{style_id to get style name.}
 }

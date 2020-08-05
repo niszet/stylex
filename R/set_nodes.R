@@ -1,4 +1,3 @@
-
 # TODO: add flags of create/delete/update
 # good word for attr/val...?
 set_node_x <- function(node, val, tag, attr){
@@ -9,26 +8,6 @@ set_node_x <- function(node, val, tag, attr){
     set_attr_val(node, val, tag, attr)
   }
 }
-
-# TODO: rename to get_node. add document and export.
-# this is NOT return a node. value of T/F or attribute.
-get_node_x <- function(style_xml, tag_attr){
-  tag <- tag_attr[1]
-  attr <- tag_attr[2]
-
-  if(is.na(attr)){
-    # if(stringr::str_detect(tag, "/")) might not need.
-      dplyr::if_else(!is.na(xml2::xml_child(style_xml, tag)), T, NA)
-  }else{
-    if(is.na(tag)){
-      # style tag attr. type and so on
-      xml2::xml_attr(style_xml, attr)
-    }else{
-      xml2::xml_attr(xml2::xml_child(style_xml, tag), attr)
-    }
-  }
-}
-
 
 
 #' set existence to target tag
