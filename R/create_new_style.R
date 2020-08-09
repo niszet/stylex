@@ -26,28 +26,9 @@ create_style_from_styles <- function(styles_xml, style_name, ref_name = NULL, st
   stopifnot(is_unique_style_id(df, style_id))
   stopifnot(is_unique_style_name(df, style_name))
 
-  x <- create_docx_styles_root()
-
   node <- get_node_by_name(style_xml, ref_name)[[1]]
 
-  add_style_to_styles(x, node)
-
-  # TODO replace to set_node_tagattr
-  # set_node_tagattr(x, val=style_id, attr="w:styleId", )
-  xml2::xml_set_attr(xml2::xml_child(x, "w:style"), "w:styleId", style_id)
-  xml2::xml_set_attr(xml2::xml_child(x, "w:style/w:name"), "w:val", style_name)
-
-  x <- xml2::xml_child(x)
-  y <- xml2::xml_attrs(x)
-
-  xml2::xml_attrs(x) <- NULL
-
-  # Remove namespace related attribute.
-  # TODO add test about it. Dependency of xml2 behaviour.
-  # xml2::xml_attrs(x) <- y[!names(y) %in% "xmlns:w"]
-  xml2::xml_attrs(x) <- y[-which(names(y) %in% "xmlns:w")]
-
-  x
+  return(copy_style_from_node(node, style_name))
 
 }
 
@@ -87,8 +68,7 @@ copy_style_from_node <- function(style_node, style_name){
 
   # Remove namespace related attribute.
   # TODO add test about it. Dependency of xml2 behaviour.
-  # xml2::xml_attrs(x) <- y[!names(y) %in% "xmlns:w"]
-  xml2::xml_attrs(x) <- y[-which(names(y) %in% "xmlns:w")]
+  xml2::xml_attrs(x) <- y[!names(y) %in% "xmlns:w"]
 
   x
 }

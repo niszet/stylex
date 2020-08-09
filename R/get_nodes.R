@@ -122,7 +122,7 @@ get_name_by_id <- function(styles_xml, style_id){
   target_node <- get_node_by_id(styles_xml, style_id)
 
   get_node_x(target_node, c("w:name", "val"))
-  # xml2::xml_attr(xml2::xml_child(target_node, "w:name"), "val")
+
 }
 
 #' Get style id from style name
