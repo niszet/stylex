@@ -140,3 +140,21 @@ You can see the structure of xml node/node\_set object by
         <color [val, themeColor]>
         <sz [val]>
         <szCs [val]>
+
+Tag and its attributes
+======================
+
+`stylex` can modify several tags and its attributes. You can get the
+full list of pair of tags and its attributes via `stylex:::TAGATTRLIST`.
+
+You can also get the above list as a data.frame via
+`stylex:::TAGATTRDF`.
+
+    head(stylex:::TAGATTRDF)
+    #>           name    tag        attr
+    #> 1         type   <NA>        type
+    #> 2     name_val w:name         val
+    #> 3     style_id   <NA>     styleId
+    #> 4 custom_style   <NA> customStyle
+    #> 5      default   <NA>     default
+    #> 6     link_val w:link         val

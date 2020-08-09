@@ -23,11 +23,12 @@ get_node_x <- function(style_xml, tag_attr){
 #' @param styles_xml xml_node object
 #'
 #' @return xml_nodeset object which contains style tags
-get_style_tags_from_styles <- function(styles_xml){
+get_style_nodes <- function(styles_xml){
 
-  if(class(styles_xml) %in% c("xml_node", "xml_document")){
+  if(any(class(styles_xml) %in% c("xml_node", "xml_document"))){
     xml2::xml_find_all(styles_xml, "w:style")
   }else{
+    # TODO: should be NULL?
     styles_xml
   }
 
@@ -48,7 +49,11 @@ get_style_tags_from_styles <- function(styles_xml){
 #' get_styles(xml)
 #' }
 get_styles <- function(xml){
-  xml2::xml_find_first(xml, "/w:styles")
+  if(any(class(xml) %in% c("xml_document"))){
+    xml2::xml_find_first(xml, "/w:styles")
+  }else{
+    xml
+  }
 }
 
 
@@ -74,7 +79,7 @@ get_node_by_id <- function(styles_xml, node_id){
 
   # TODO: this function should be a wrapper of get_node_x.
   #
-  styles_xml <- get_style_tags_from_styles(styles_xml)
+  styles_xml <- get_style_nodes(styles_xml)
 
   styles_xml[get_node_x(styles_xml, c(NA, "styleId"))==node_id]
   # styles_xml[xml2::xml_attr(styles_xml, "styleId")==node_id]
@@ -97,7 +102,7 @@ get_node_by_id <- function(styles_xml, node_id){
 
 get_node_by_name <- function(styles_xml, name){
 
-  styles_xml <- get_style_tags_from_styles(styles_xml)
+  styles_xml <- get_style_nodes(styles_xml)
 
   styles_xml[get_node_x(styles_xml, c("w:name", "val"))==name]
   # styles_xml[xml2::xml_attr(xml2::xml_child(styles_xml, "w:name"), "val")==name]
@@ -117,7 +122,7 @@ get_node_by_name <- function(styles_xml, name){
 #' }
 get_name_by_id <- function(styles_xml, style_id){
 
-  styles_xml <- get_style_tags_from_styles(styles_xml)
+  styles_xml <- get_style_nodes(styles_xml)
 
   target_node <- get_node_by_id(styles_xml, style_id)
 
@@ -139,7 +144,7 @@ get_name_by_id <- function(styles_xml, style_id){
 #' }
 get_id_by_name <- function(styles_xml, name){
 
-  styles_xml <- get_style_tags_from_styles(styles_xml)
+  styles_xml <- get_style_nodes(styles_xml)
 
   target_node <- get_node_by_name(styles_xml, name)
   xml2::xml_attr(target_node, "styleId")

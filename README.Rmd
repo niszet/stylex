@@ -148,3 +148,13 @@ You can see the structure of xml node/node_set object by `xml2::xml_structure()`
     <szCs [val]>
 ```
 
+
+# Tag and its attributes
+
+`stylex` can modify several tags and its attributes. You can get the full list of pair of tags and its attributes via `stylex:::TAGATTRLIST`.
+
+You can also get the above list as a data.frame via `stylex:::TAGATTRDF`.
+
+```{r tagattrdf}
+head(stylex:::TAGATTRDF)
+```

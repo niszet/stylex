@@ -81,7 +81,7 @@ style2dddf <- function(style_xml){
 #'
 style2df <- function(style_xml){
 
-  style_xml <- get_style_tags_from_styles(style_xml)
+  style_xml <- get_style_nodes(style_xml)
 
   cn <- TAGATTRDF[[1]]
 

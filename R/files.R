@@ -11,12 +11,15 @@
 #'   read_docx("reference.docx")
 #' }
 #'
-read_docx <- function(file){
+read_styles <- function(file){
   tmpdir = fs::file_temp()
   officer::unpack_folder(file = file, folder = tmpdir)
   x <- xml2::read_xml(fs::path_abs(fs::path(tmpdir, "word/styles.xml")))
 
   fs::dir_delete(tmpdir)
+
+  # TODO: all other functions also has addition of clas...
+  # class(x) <- c("docx_styles", class(x))
 
   x
 }
@@ -35,7 +38,7 @@ read_docx <- function(file){
 #'   write_docx(xml, "reference.docx", "updated.docx")
 #' }
 #'
-write_docx <- function(styles_xml, org_docx, new_docx){
+write_styles <- function(styles_xml, org_docx, new_docx){
 
   tmpdir = fs::file_temp()
   officer::unpack_folder(file = org_docx, folder = tmpdir)

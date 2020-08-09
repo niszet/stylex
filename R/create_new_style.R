@@ -11,7 +11,7 @@
 #'
 create_style_from_styles <- function(styles_xml, style_name, ref_name = NULL, style_id = "auto"){
 
-  style_xml <- get_style_tags_from_styles(styles_xml)
+  style_xml <- get_style_nodes(styles_xml)
   df <- style2df(style_xml)
 
   if(is.null(ref_name)){
