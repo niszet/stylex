@@ -49,17 +49,15 @@ get_style_nodes <- function(styles_xml){
 #' get_styles(xml)
 #' }
 get_styles <- function(xml){
-  if(any(class(xml) %in% c("xml_document"))){
+  # docx_styles and xml_document
+  if(all(
+        any(class(xml) %in% c("docx_styles")), any(class(xml) %in% c("xml_document"))
+    )){
     xml2::xml_find_first(xml, "/w:styles")
   }else{
     xml
   }
 }
-
-
-
-
-
 
 
 #' To get specific node by style_id
@@ -77,12 +75,9 @@ get_styles <- function(xml){
 #'
 get_node_by_id <- function(styles_xml, node_id){
 
-  # TODO: this function should be a wrapper of get_node_x.
-  #
   styles_xml <- get_style_nodes(styles_xml)
-
   styles_xml[get_node_x(styles_xml, c(NA, "styleId"))==node_id]
-  # styles_xml[xml2::xml_attr(styles_xml, "styleId")==node_id]
+
 }
 
 
@@ -103,9 +98,8 @@ get_node_by_id <- function(styles_xml, node_id){
 get_node_by_name <- function(styles_xml, name){
 
   styles_xml <- get_style_nodes(styles_xml)
-
   styles_xml[get_node_x(styles_xml, c("w:name", "val"))==name]
-  # styles_xml[xml2::xml_attr(xml2::xml_child(styles_xml, "w:name"), "val")==name]
+
 }
 
 #' Get style name from style id
@@ -123,7 +117,6 @@ get_node_by_name <- function(styles_xml, name){
 get_name_by_id <- function(styles_xml, style_id){
 
   styles_xml <- get_style_nodes(styles_xml)
-
   target_node <- get_node_by_id(styles_xml, style_id)
 
   get_node_x(target_node, c("w:name", "val"))

@@ -33,6 +33,7 @@ create_style_from_styles <- function(styles_xml, style_name, ref_name = NULL, st
   add_style_to_styles(x, node)
 
   # TODO replace to set_node_tagattr
+  # set_node_tagattr(x, val=style_id, attr="w:styleId", )
   xml2::xml_set_attr(xml2::xml_child(x, "w:style"), "w:styleId", style_id)
   xml2::xml_set_attr(xml2::xml_child(x, "w:style/w:name"), "w:val", style_name)
 
@@ -132,6 +133,8 @@ create_styles_root <- function(){
     "xmlns:w16"="http://schemas.microsoft.com/office/word/2018/wordml",
     "xmlns:w16se"="http://schemas.microsoft.com/office/word/2015/wordml/symex"
   )
+
+  class(x) <- c("docx_styles", class(x))
 
   x
 }

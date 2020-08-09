@@ -21,7 +21,7 @@ Write docx file with original reference.docx and updated style xml
 }
 \examples{
 \dontrun{
-  write_docx(xml, "reference.docx", "updated.docx")
+  write_styles(xml, "reference.docx", "updated.docx")
 }
 
 }

@@ -19,7 +19,7 @@ read_styles <- function(file){
   fs::dir_delete(tmpdir)
 
   # TODO: all other functions also has addition of clas...
-  # class(x) <- c("docx_styles", class(x))
+  class(x) <- c("docx_styles", class(x))
 
   x
 }
@@ -35,10 +35,16 @@ read_styles <- function(file){
 #'
 #' @examples
 #' \dontrun{
-#'   write_docx(xml, "reference.docx", "updated.docx")
+#'   write_styles(xml, "reference.docx", "updated.docx")
 #' }
 #'
 write_styles <- function(styles_xml, org_docx, new_docx){
+
+  if(all(
+    any(class(styles_xml) %in% c("docx_styles")),
+    any(class(styles_xml) %in% c("xml_document")))){
+
+  }
 
   tmpdir = fs::file_temp()
   officer::unpack_folder(file = org_docx, folder = tmpdir)
