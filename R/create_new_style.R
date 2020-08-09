@@ -1,21 +1,26 @@
-#' Create a new style to reference style based on existing style
+#' Make a new style copied from referenced style in docx_styles
 #'
-#' @param styles_xml `xml_node` object with `styles` at the root.
-#' @param style_name new style name as a `character` vector.
-#' @param ref_name referenced style name in the `xml` as a `character` vector. Default is `NULL`. It means `"Normal"` style.
-#' @param style_id new style id. Unique id in docx is required. By default, it has unique id.
+#' @param docx_styles `docx_styles` object with `styles` at its root.
+#' @param new_style_name new style name as a `character` vector.
+#' @param ref_style_name referenced style name in the `xml` as a `character` vector. Default is `NULL`. It means `"Normal"` style.
+#' @param style_id new style id. Unique id in docx is required. By default, it is set by unique id.
 #'
 #' @export
 #'
 #' @return new style as a `xml_node` object.
 #'
-create_style_from_styles <- function(styles_xml, style_name, ref_name = NULL, style_id = "auto"){
+copy_style_from_docx_styles <-
+  function(docx_styles, new_style_name,
+           ref_style_name = NULL, style_id = "auto"){
 
-  style_xml <- get_style_nodes(styles_xml)
-  df <- style2df(style_xml)
+  style_nodes <- get_style_nodes(docx_styles)
 
-  if(is.null(ref_name)){
-    ref_name = "Normal"
+  df <- style2df(style_nodes)
+  stopifnot(is_unique_style_id(df, style_id))
+  stopifnot(is_unique_style_name(df, new_style_name))
+
+  if(is.null(ref_style_name)){
+    ref_style_name = "Normal"
   }
 
   # TODO: auto only?
@@ -23,12 +28,9 @@ create_style_from_styles <- function(styles_xml, style_name, ref_name = NULL, st
     style_id = create_unique_id(get_style_ids(df))
   }
 
-  stopifnot(is_unique_style_id(df, style_id))
-  stopifnot(is_unique_style_name(df, style_name))
+  node <- get_node_by_name(style_nodes, ref_style_name)[[1]]
 
-  node <- get_node_by_name(style_xml, ref_name)[[1]]
-
-  return(copy_style_from_node(node, style_name))
+  return(copy_style_from_node(node, new_style_name))
 
 }
 
@@ -36,12 +38,12 @@ create_style_from_styles <- function(styles_xml, style_name, ref_name = NULL, st
 #' Make a style node from reference node
 #'
 #' @param style_node reference style node of `xml_node`
-#' @param style_name name for new style
+#' @param new_style_name name for new style
 #'
 #' @return new style node of `xml_node`
 #' @export
 #'
-copy_style_from_node <- function(style_node, style_name){
+copy_style_from_node <- function(style_node, new_style_name){
 
   df <- style2df(style_node)
 
@@ -52,14 +54,16 @@ copy_style_from_node <- function(style_node, style_name){
   style_id = create_unique_id(get_style_ids(df))
 
   stopifnot(is_unique_style_id(df, style_id))
-  stopifnot(is_unique_style_name(df, style_name))
+  stopifnot(is_unique_style_name(df, new_style_name))
 
   x <- create_docx_styles_root()
 
   add_style_to_styles(x, style_node)
 
+  # ???
   xml2::xml_set_attr(x, "w:styleId", style_id)
-  xml2::xml_set_attr(xml2::xml_child(x, "w:name"), "w:val", style_name)
+  xml2::xml_set_attr(xml2::xml_child(x, "w:name"), "w:val",
+                     new_style_name)
 
   x <- xml2::xml_child(x)
   y <- xml2::xml_attrs(x)
@@ -89,17 +93,25 @@ convert_style_nodes_to_docx_styles <- function(style_nodes){
   x
 }
 
-add_style_to_styles <- function(styles_xml, style_node){
-  stopifnot("xml_node" %in% class(styles_xml))
+#' Add style_node to docx_styles as a child node
+#'
+#' @param docx_styles `docx_styles` object. (both `xml_node` and `xml_document` are OK)
+#' @param style_node `xml_node` of style.
+#'
+#' @return `docx_styles` updated by argument style_node as its child.
+#' @export
+#'
+add_style_to_styles <- function(docx_styles, style_node){
+  stopifnot("docx_styles" %in% class(docx_styles))
   stopifnot(class(style_node)=="xml_node")
-  xml2::xml_add_child(styles_xml, style_node)
+  xml2::xml_add_child(docx_styles, style_node)
 }
 
 
 #' Create root of `docx_styles` object.
 #'
 #' @export
-#' @return xml_node with styles root.
+#' @return `docx_styles` object which has `styles` as a root.
 #'
 create_docx_styles_root <- function(){
   x <- xml2::xml_new_root(
@@ -124,9 +136,9 @@ create_docx_styles_root <- function(){
 
 #' Generate unique style id
 #'
-#' @param ids style id character vector
+#' @param ids style IDs as a character vector
 #'
-#' @return character of style id
+#' @return character value of style id
 #'
 create_unique_id <- function(ids){
   # z\d+ is a naming rule

@@ -74,7 +74,7 @@ test_that("create new style", {
   test_xml <- read_styles("sample.docx")
 
   styles <- get_styles(test_xml)
-  y <- create_style_from_styles(styles, "Hoge")
+  y <- copy_style_from_docx_styles(styles, "Hoge")
   x <- stylex::get_node_by_name(styles, "Normal")
 
   testthat::expect_equal(is_same_nodes(x, y), TRUE)

@@ -7,10 +7,10 @@
 create_unique_id(ids)
 }
 \arguments{
-\item{ids}{style id character vector}
+\item{ids}{style IDs as a character vector}
 }
 \value{
-character of style id
+character value of style id
 }
 \description{
 Generate unique style id

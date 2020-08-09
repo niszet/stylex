@@ -4,12 +4,12 @@
 \alias{copy_style_from_node}
 \title{Make a style node from reference node}
 \usage{
-copy_style_from_node(style_node, style_name)
+copy_style_from_node(style_node, new_style_name)
 }
 \arguments{
 \item{style_node}{reference style node of \code{xml_node}}
 
-\item{style_name}{name for new style}
+\item{new_style_name}{name for new style}
 }
 \value{
 new style node of \code{xml_node}

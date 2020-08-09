@@ -7,7 +7,7 @@
 create_docx_styles_root()
 }
 \value{
-xml_node with styles root.
+\code{docx_styles} object which has \code{styles} as a root.
 }
 \description{
 Create root of \code{docx_styles} object.
