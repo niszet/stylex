@@ -129,8 +129,9 @@ test_that("styles to style", {
   docx_xml <- read_styles("sample.docx")
   styles <- get_styles(docx_xml)
 
-  x <- convert_style_tags_to_styles(get_style_nodes(styles))
-  # Dummy
+  x <- convert_style_nodes_to_docx_styles(get_style_nodes(styles))
+
+  # Dummy... This should by checked by customised exact_same check function.
   testthat::expect_equal(x, docx_xml)
 })
 

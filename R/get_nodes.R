@@ -25,6 +25,7 @@ get_node_x <- function(style_xml, tag_attr){
 #' @return xml_nodeset object which contains style tags
 get_style_nodes <- function(styles_xml){
 
+  # TODO: should add docx_styles?
   if(any(class(styles_xml) %in% c("xml_node", "xml_document"))){
     xml2::xml_find_all(styles_xml, "w:style")
   }else{
@@ -51,7 +52,8 @@ get_style_nodes <- function(styles_xml){
 get_styles <- function(xml){
   # docx_styles and xml_document
   if(all(
-        any(class(xml) %in% c("docx_styles")), any(class(xml) %in% c("xml_document"))
+        any(class(xml) %in% c("docx_styles")),
+        any(class(xml) %in% c("xml_document"))
     )){
     xml2::xml_find_first(xml, "/w:styles")
   }else{

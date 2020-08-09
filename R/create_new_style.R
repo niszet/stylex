@@ -26,7 +26,7 @@ create_style_from_styles <- function(styles_xml, style_name, ref_name = NULL, st
   stopifnot(is_unique_style_id(df, style_id))
   stopifnot(is_unique_style_name(df, style_name))
 
-  x <- create_styles_root()
+  x <- create_docx_styles_root()
 
   node <- get_node_by_name(style_xml, ref_name)[[1]]
 
@@ -73,7 +73,7 @@ copy_style_from_node <- function(style_node, style_name){
   stopifnot(is_unique_style_id(df, style_id))
   stopifnot(is_unique_style_name(df, style_name))
 
-  x <- create_styles_root()
+  x <- create_docx_styles_root()
 
   add_style_to_styles(x, style_node)
 
@@ -98,9 +98,10 @@ delete_style_from_styles <- function(styles_xml, style_name){
 }
 
 # convert_style_tags_to_styles_tag
-convert_style_tags_to_styles <- function(style_nodes){
+# to docx_styles ?
+convert_style_nodes_to_docx_styles <- function(style_nodes){
   # must be tested
-  x <- create_styles_root()
+  x <- create_docx_styles_root()
   for(style in style_nodes){
     xml2::xml_add_child(x, style)
   }
@@ -115,11 +116,12 @@ add_style_to_styles <- function(styles_xml, style_node){
 }
 
 
-#' Internal function for making xml_node with style at the top
+#' Create root of `docx_styles` object.
 #'
+#' @export
 #' @return xml_node with styles root.
 #'
-create_styles_root <- function(){
+create_docx_styles_root <- function(){
   x <- xml2::xml_new_root(
     "styles",
     "Ignorable"="w14 w15 w16se w16cid w16 w16cex",

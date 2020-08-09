@@ -40,10 +40,11 @@ read_styles <- function(file){
 #'
 write_styles <- function(styles_xml, org_docx, new_docx){
 
-  if(all(
+  if(!all(
     any(class(styles_xml) %in% c("docx_styles")),
     any(class(styles_xml) %in% c("xml_document")))){
-
+    warning("object does not have docx_styles and xml_document classes")
+    return(NULL)
   }
 
   tmpdir = fs::file_temp()
