@@ -80,7 +80,7 @@ test_that("create new style", {
   testthat::expect_equal(is_same_nodes(x, y), TRUE)
 })
 
-# check update_xml
+# check update_styles_from_df
 test_that("update xml", {
 
   # not enough... everything should be updated
@@ -90,7 +90,7 @@ test_that("update xml", {
   d <- style2df(styles)
   # d_df <- diff_of_dfs(d, d)
 
-  xml <- update_xml(get_style_nodes(styles), d[1,])
+  xml <- update_styles_from_df(get_style_nodes(styles), d[1,])
 
   # styles_to_styles
   # styles_to_docx_xml

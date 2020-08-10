@@ -56,7 +56,7 @@ modified simultaneously.
     d[d$style_id=="1","r_pr_sz_val"] <- "400"
 
     # update docx_style by updated data.frame.
-    xml <- update_xml(style_xml, d)
+    xml <- update_styles_from_df(style_xml, d)
 
     # write the modified docx file.
     write_style(xml, ref_file, "modified.docx")
@@ -137,6 +137,8 @@ You can see the structure of xml node/node\_set object by
         <color [val, themeColor]>
         <sz [val]>
         <szCs [val]>
+
+This function will be imcorporated into `stylex` package.
 
 To see nodes of styles
 ======================
