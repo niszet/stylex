@@ -22,7 +22,7 @@ especially for Pandoc’s docx input aka `reference.docx`. But any other
 docx file can be used.
 
 `stylex` package acts as a wrapper functions of `xml2`. This helps you
-to modify the style object of xml w/o error-prone actions.
+to modify the style object without knowledge of xml2 package behaviour.
 
 Installation
 ------------
@@ -39,30 +39,27 @@ Example 1
 
 `stylex` package provides a way to modify docx file through a
 data.frame. By changing data.frame, many styles in target file can be
-modified simaltanaoutsly.
+modified simultaneously.
 
     library(stylex)
 
     # set the complete file path
-    file = "sample.docx"
+    ref_file = "sample.docx"
 
-    # get xml object from style.xml in the target docx
-    xml <- read_style_xml(file)
+    # get docx_styles object (styles_node) from style.xml in the docx
+    style_xml <- read_styles(ref_file)
 
-    # extract style tags from xml object of style.xml
-    style_xml <- get_style_tags(xml)
-
-    # transform to data.frame by style_xml object.
+    # transform docx_styles to data.frame format.
     d <- style2df(style_xml)
 
     # try to modify by specifing style_id and column name.
-    d[d$style_id=="1","r_sz_val"] <- "400"
+    d[d$style_id=="1","r_pr_sz_val"] <- "400"
 
-    # update xml file by updated data.frame with original docx file.
-    xml <- update_xml(file, d)
+    # update docx_style by updated data.frame.
+    xml <- update_xml(style_xml, d)
 
     # write the modified docx file.
-    write_style(xml, file, "modified.docx")
+    write_style(xml, ref_file, "modified.docx")
 
 Example 2
 ---------
@@ -73,9 +70,8 @@ internal functions.
 
     library(stylex)
 
-    file = "sample.docx"
-    xml <- read_style_xml(file)
-    style_xml <- get_style_tags(xml)
+    ref_file = "sample.docx"
+    style_xml <- read_styles(ref_file)
 
     # node extract by tag name of "Date".
     node <- get_node_by_name(style_xml, "Date")
@@ -87,21 +83,17 @@ internal functions.
     # by name, you must write that exactly, i.e. white spaces.
     # node <- get_node_by_name(style_xml, "heading 5")
 
-    # Because the node is an object of xml2, prior to View it load xml2 package.
-    # library(xml2)
-    # View(node)
+    # Set the value by function.
+    # When node object changes, original xml object is also changed.
+    stylex:::set_node_tagattr(node, val="42", tag="w:rPr/w:sz", attr="val")
+    stylex:::set_node_tagattr(node, val="accent2", tag="w:rPr/w:color", attr="themecolor")
+    stylex:::set_node_tagattr(node, val="2000", tag="w:rPr/w:spacing", attr="before")
+    stylex:::set_node_tagattr(node, val=TRUE, tag="w:rPr/w:b")
 
-    # set the value by each functions to each tags.
-    # when node object changes, original xml object is also changed.
-    stylex:::set_r_sz_val(node, "42")
-    stylex:::set_r_color_themecolor(node, "accent2")
-    stylex:::set_p_spacing_before(node, 2000)
-    stylex:::set_r_b(node, T)
-
-    write_style(xml, file, "modified.docx")
+    write_style(xml, ref_file, "modified.docx")
 
 Example 3
-=========
+---------
 
 `stylex` package can create new style based on existing style. Now
 `create_new_style` is non-exported function.
@@ -109,13 +101,18 @@ Example 3
     library(stylex)
 
     file = "sample.docx"
-    xml <- read_style_xml(file)
-    style_xml <- get_style_tags(xml)
+    styles_node <- read_styles(file)
 
-    modified_xml <- stylex:::create_new_style(style_xml, "Author_based_new_style", "Author")
+    node <- get_node_by_name(styles_node, "Author")
+    stylex::copy_style_from_node(node, "Author_based_new_style")
+
+    stylex::add_style_to_styles(styles_node, node)
 
 node structure
 ==============
+
+Prepare
+-------
 
 You can see the structure of xml node/node\_set object by
 `xml2::xml_structure()` function as following
@@ -141,11 +138,38 @@ You can see the structure of xml node/node\_set object by
         <sz [val]>
         <szCs [val]>
 
+To see nodes of styles
+======================
+
+    # Because the node is an object of xml2, prior to View it load xml2 package.
+
+    library(xml2)
+    View(node)
+
 Tag and its attributes
 ======================
 
 `stylex` can modify several tags and its attributes. You can get the
 full list of pair of tags and its attributes via `stylex:::TAGATTRLIST`.
+
+    head(stylex:::TAGATTRLIST)
+    #> [[1]]
+    #> [1] NA     "type"
+    #> 
+    #> [[2]]
+    #> [1] "w:name" "val"   
+    #> 
+    #> [[3]]
+    #> [1] NA        "styleId"
+    #> 
+    #> [[4]]
+    #> [1] NA            "customStyle"
+    #> 
+    #> [[5]]
+    #> [1] NA        "default"
+    #> 
+    #> [[6]]
+    #> [1] "w:link" "val"
 
 You can also get the above list as a data.frame via
 `stylex:::TAGATTRDF`.

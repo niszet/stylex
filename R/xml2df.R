@@ -63,12 +63,12 @@ style2dddf <- function(style_xml){
 }
 
 
-#' Convert xml object to data.frame
+#' Convert `docx_styles` object to data.frame
 #'
-#' Convertion from xml to data.frame for modification usability.
+#' Conversion from `docx_styles` to data.frame for modification usability.
 #'
 #'
-#' @param style_xml A node oject of xml2. It expexts output of `read_style_xml()`.
+#' @param docx_styles docx_styles object.
 #'
 #' @return data.frame converted from input xml.
 #'
@@ -76,12 +76,12 @@ style2dddf <- function(style_xml){
 #'
 #' @examples
 #' \dontrun{
-#' style2df(style_xml)
+#' style2df(docx_styles)
 #' }
 #'
-style2df <- function(style_xml){
+style2df <- function(docx_styles){
 
-  style_xml <- get_style_nodes(style_xml)
+  style_xml <- get_style_nodes(docx_styles)
 
   cn <- TAGATTRDF[[1]]
 

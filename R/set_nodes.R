@@ -125,7 +125,7 @@ set_attr_val <- function(node, val, tag, attr){
 #' Existence check of parent of tag
 #'
 #' @param node xml node/node_set object of style
-#' @param tag tag under the node
+#' @param tag tag under the node to be checked
 #'
 #' @return
 #' TRUE : if parent tag exist or no parent tag.

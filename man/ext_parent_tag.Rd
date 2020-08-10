@@ -9,7 +9,7 @@ ext_parent_tag(node, tag)
 \arguments{
 \item{node}{xml node/node_set object of style}
 
-\item{tag}{tag under the node}
+\item{tag}{tag under the node to be checked}
 }
 \value{
 TRUE : if parent tag exist or no parent tag.
